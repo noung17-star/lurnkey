@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VENOM VIP PANEL - PUBG Mod Key Generator</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap">
     <style>
         * {
             margin: 0;
@@ -24,6 +24,7 @@
             --warning: #e9c46a;
             --danger: #e76f51;
             --neon: #00ff9d;
+            --owner: #ff6b00;
         }
         
         body {
@@ -220,6 +221,10 @@
         
         .btn:active {
             transform: translateY(1px);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--accent), #304a6e);
         }
         
         /* Key display styling */
@@ -534,6 +539,51 @@
             color: var(--neon);
         }
         
+        /* Referral Banner */
+        .referral-banner {
+            background: rgba(255, 107, 0, 0.15);
+            border: 1px solid var(--owner);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        
+        .referral-banner h3 {
+            color: var(--owner);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .referral-code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.4rem;
+            color: var(--owner);
+            letter-spacing: 2px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        
+        /* Form Toggle */
+        .form-toggle {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .form-toggle a {
+            color: var(--neon);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .form-toggle a:hover {
+            text-decoration: underline;
+        }
+        
         /* Responsive design */
         @media (max-width: 768px) {
             .header h1 {
@@ -617,14 +667,58 @@
                 <i class="fas fa-sign-in-alt"></i> Login
             </button>
             
+            <div class="form-toggle">
+                Don't have an account? <a id="showRegister">Register here</a>
+            </div>
+            
             <div style="text-align: center; margin: 20px 0;">
                 <a href="https://t.me/c1111111c1" class="telegram-btn">
                     <i class="fab fa-telegram"></i> Join Telegram Channel
                 </a>
             </div>
+        </div>
+        
+        <!-- Registration Panel -->
+        <div class="panel" id="registerPanel" style="display:none">
+            <h2 class="panel-title">Create Account</h2>
             
-            <div style="text-align: center; color: var(--accent); margin-top: 20px;">
-                Don't have an account? <a href="#" id="showRegister" style="color: var(--neon); text-decoration: none;">Register here</a>
+            <div class="form-group">
+                <label for="regUsername"><i class="fas fa-user"></i> Username</label>
+                <input type="text" id="regUsername" class="form-control" placeholder="Enter username (no spaces)">
+            </div>
+            
+            <div class="form-group">
+                <label for="regFullname"><i class="fas fa-user-tag"></i> Full Name</label>
+                <input type="text" id="regFullname" class="form-control" placeholder="Enter full name (no spaces)">
+            </div>
+            
+            <div class="form-group">
+                <label for="regPassword"><i class="fas fa-lock"></i> Password</label>
+                <input type="password" id="regPassword" class="form-control" placeholder="Enter password">
+            </div>
+            
+            <div class="form-group">
+                <label for="regConfirmPassword"><i class="fas fa-lock"></i> Confirm Password</label>
+                <input type="password" id="regConfirmPassword" class="form-control" placeholder="Confirm password">
+            </div>
+            
+            <div class="form-group">
+                <label for="referralCode"><i class="fas fa-gift"></i> Referral Code (Optional)</label>
+                <input type="text" id="referralCode" class="form-control" placeholder="Enter referral code">
+            </div>
+            
+            <div class="referral-banner">
+                <h3><i class="fas fa-crown"></i> Owner's Referral Bonus</h3>
+                <p>Use the panel owner's referral code to receive 500,000 MMK!</p>
+                <div class="referral-code">OWNER-REF-001</div>
+            </div>
+            
+            <button class="btn" id="registerBtn">
+                <i class="fas fa-user-plus"></i> Register
+            </button>
+            
+            <div class="form-toggle">
+                Already have an account? <a id="showLogin">Login here</a>
             </div>
         </div>
         
@@ -638,99 +732,29 @@
             
             <h2 class="panel-title">Welcome, <span id="userName" style="color: var(--neon);">Player</span></h2>
             
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Account Balance</div>
+                    <div class="stat-value" id="userBalance">0 MMK</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Keys Generated</div>
+                    <div class="stat-value" id="keyCount">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Account Status</div>
+                    <div class="stat-value" style="color: var(--success);">VIP</div>
+                </div>
+            </div>
+            
             <div class="tab-container">
-                <div class="tab active" data-tab="dashboard">Dashboard</div>
-                <div class="tab" data-tab="generate">Generate Keys</div>
+                <div class="tab active" data-tab="generate">Generate Keys</div>
                 <div class="tab" data-tab="keys">My Keys</div>
                 <div class="tab" data-tab="settings">Settings</div>
             </div>
             
-            <!-- Dashboard Tab -->
-            <div class="tab-content active" id="dashboardTab">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-label">TOTAL KEYS</div>
-                        <div class="stat-value">1,205</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">USED KEYS</div>
-                        <div class="stat-value">1,061</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">UN-USED KEYS</div>
-                        <div class="stat-value">144</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">TOTAL USERS</div>
-                        <div class="stat-value">1,425</div>
-                    </div>
-                </div>
-                
-                <h3 class="panel-title" style="font-size:1.5rem">Recent Key History</h3>
-                
-                <table class="history-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Game</th>
-                            <th>User</th>
-                            <th>Duration</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>#3812525</td>
-                            <td>PUBG</td>
-                            <td>Sarva**</td>
-                            <td>1 Day</td>
-                            <td style="color: var(--success);">Active</td>
-                        </tr>
-                        <tr>
-                            <td>#3812524</td>
-                            <td>PUBG</td>
-                            <td>@PUBG**</td>
-                            <td>3 Days</td>
-                            <td style="color: var(--warning);">Pending</td>
-                        </tr>
-                        <tr>
-                            <td>#3812523</td>
-                            <td>PUBG</td>
-                            <td>REDTE**</td>
-                            <td>7 Days</td>
-                            <td style="color: var(--success);">Active</td>
-                        </tr>
-                        <tr>
-                            <td>#3812522</td>
-                            <td>PUBG</td>
-                            <td>ASD12**</td>
-                            <td>30 Days</td>
-                            <td style="color: var(--danger);">Expired</td>
-                        </tr>
-                        <tr>
-                            <td>#3812521</td>
-                            <td>PUBG</td>
-                            <td>AigoI**</td>
-                            <td>30 Days</td>
-                            <td style="color: var(--success);">Active</td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-label">Account Balance</div>
-                        <div class="stat-value">478,461 MMK</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Account Status</div>
-                        <div class="stat-value" style="color: var(--success);">VIP</div>
-                    </div>
-                </div>
-            </div>
-            
             <!-- Generate Keys Tab -->
-            <div class="tab-content" id="generateTab">
+            <div class="tab-content active" id="generateTab">
                 <h3 class="panel-title" style="font-size:1.5rem">Generate Mod Key</h3>
                 
                 <div class="form-group">
@@ -745,34 +769,26 @@
                 <div class="form-group">
                     <label for="maxDevices"><i class="fas fa-mobile-alt"></i> Max Devices</label>
                     <select id="maxDevices" class="form-control">
-                        <option value="1" selected>1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="5">5</option>
-                        <option value="10">10</option>
+                        <option value="1" selected>1 Device - 10,000 MMK</option>
+                        <option value="2">2 Devices - 18,000 MMK</option>
+                        <option value="3">3 Devices - 25,000 MMK</option>
+                        <option value="5">5 Devices - 40,000 MMK</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
                     <label for="duration"><i class="fas fa-clock"></i> Duration</label>
                     <select id="duration" class="form-control">
-                        <option value="2">2 Hours - 1,000 MMK/Device</option>
-                        <option value="6">6 Hours - 2,500 MMK/Device</option>
-                        <option value="24">1 Day - 5,000 MMK/Device</option>
-                        <option value="72">3 Days - 12,000 MMK/Device</option>
-                        <option value="168">7 Days - 25,000 MMK/Device</option>
-                        <option value="720">30 Days - 100,000 MMK/Device</option>
+                        <option value="1">1 Day - 5,000 MMK</option>
+                        <option value="3">3 Days - 12,000 MMK</option>
+                        <option value="7" selected>7 Days - 25,000 MMK</option>
+                        <option value="30">30 Days - 80,000 MMK</option>
                     </select>
                 </div>
                 
-                <div class="checkbox-group">
-                    <input type="checkbox" id="customKey" checked>
-                    <label for="customKey">Custom Key Format</label>
-                </div>
-                
-                <div class="checkbox-group">
-                    <input type="checkbox" id="bulkKeys">
-                    <label for="bulkKeys">Generate Multiple Keys</label>
+                <div class="form-group">
+                    <label>Total Cost</label>
+                    <div class="stat-value" id="totalCost" style="font-size: 2rem; text-align: center;">35,000 MMK</div>
                 </div>
                 
                 <button class="btn" id="generateBtn">
@@ -782,12 +798,6 @@
                 <div class="key-display" id="generatedKey">
                     Key will appear here
                 </div>
-                
-                <div style="text-align: center; margin-top: 20px;">
-                    <a href="https://t.me/c1111111c1" class="telegram-btn">
-                        <i class="fab fa-telegram"></i> Join Telegram for Support
-                    </a>
-                </div>
             </div>
             
             <!-- My Keys Tab -->
@@ -795,39 +805,7 @@
                 <h3 class="panel-title" style="font-size:1.5rem">My Generated Keys</h3>
                 
                 <div class="key-list" id="keyList">
-                    <div class="key-item">
-                        <div class="key-code">sail-18-AB3D5</div>
-                        <div class="key-actions">
-                            <div class="key-btn copy-btn" title="Copy Key">
-                                <i class="fas fa-copy"></i>
-                            </div>
-                            <div class="key-btn delete-btn" title="Delete Key">
-                                <i class="fas fa-trash"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="key-item">
-                        <div class="key-code">sail-18-XY9Z1</div>
-                        <div class="key-actions">
-                            <div class="key-btn copy-btn" title="Copy Key">
-                                <i class="fas fa-copy"></i>
-                            </div>
-                            <div class="key-btn delete-btn" title="Delete Key">
-                                <i class="fas fa-trash"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="key-item">
-                        <div class="key-code">sail-17-K8J7H</div>
-                        <div class="key-actions">
-                            <div class="key-btn copy-btn" title="Copy Key">
-                                <i class="fas fa-copy"></i>
-                            </div>
-                            <div class="key-btn delete-btn" title="Delete Key">
-                                <i class="fas fa-trash"></i>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Keys will be added here dynamically -->
                 </div>
                 
                 <div class="form-group" style="margin-top: 30px;">
@@ -868,18 +846,22 @@
                 
                 <div class="form-group">
                     <label for="accountFullName"><i class="fas fa-user"></i> Full Name</label>
-                    <input type="text" id="accountFullName" class="form-control" value="lurn">
+                    <input type="text" id="accountFullName" class="form-control" value="">
                 </div>
                 
-                <button class="btn" id="updateAccountBtn">
-                    <i class="fas fa-save"></i> Update Account
+                <div class="form-group">
+                    <label for="userReferral"><i class="fas fa-share-alt"></i> Your Referral Code</label>
+                    <input type="text" id="userReferral" class="form-control" value="" readonly>
+                </div>
+                
+                <div class="referral-banner">
+                    <h3><i class="fas fa-gift"></i> Referral Program</h3>
+                    <p>Share your referral code with friends to earn 100,000 MMK for each new user!</p>
+                </div>
+                
+                <button class="btn btn-secondary" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
                 </button>
-                
-                <div style="margin-top: 30px; text-align: center;">
-                    <a href="https://t.me/c1111111c1" class="telegram-btn">
-                        <i class="fab fa-telegram"></i> Contact Support
-                    </a>
-                </div>
             </div>
         </div>
         
@@ -894,45 +876,345 @@
     </div>
     
     <script>
-        // Tab switching functionality
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Remove active class from all tabs
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                // Add active class to clicked tab
-                tab.classList.add('active');
-                
-                // Hide all tab contents
-                document.querySelectorAll('.tab-content').forEach(content => {
-                    content.classList.remove('active');
-                });
-                
-                // Show the corresponding tab content
-                const tabId = tab.getAttribute('data-tab');
-                document.getElementById(`${tabId}Tab`).classList.add('active');
-            });
+        // Current user data
+        let currentUser = null;
+        
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load users from localStorage
+            loadUsers();
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Update cost calculation
+            updateCost();
         });
         
-        // Login functionality
-        document.getElementById('loginBtn').addEventListener('click', function() {
-            const username = document.getElementById('username').value;
+        // Load users from localStorage
+        function loadUsers() {
+            if (!localStorage.getItem('users')) {
+                // Create the panel owner account
+                const owner = {
+                    id: 1,
+                    username: "owner",
+                    fullName: "Panel Owner",
+                    password: "owner123",
+                    balance: 10000000,
+                    referralCode: "OWNER-REF-001",
+                    keys: [],
+                    isOwner: true
+                };
+                
+                // Create a test user
+                const testUser = {
+                    id: 2,
+                    username: "sail",
+                    fullName: "Sail User",
+                    password: "sail123",
+                    balance: 500000,
+                    referralCode: "SAIL-REF-001",
+                    keys: []
+                };
+                
+                // Save to localStorage
+                localStorage.setItem('users', JSON.stringify([owner, testUser]));
+            }
+        }
+        
+        // Get all users
+        function getUsers() {
+            return JSON.parse(localStorage.getItem('users')) || [];
+        }
+        
+        // Save users
+        function saveUsers(users) {
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+        
+        // Setup event listeners
+        function setupEventListeners() {
+            // Form toggles
+            document.getElementById('showRegister').addEventListener('click', showRegisterForm);
+            document.getElementById('showLogin').addEventListener('click', showLoginForm);
+            
+            // Register button
+            document.getElementById('registerBtn').addEventListener('click', registerUser);
+            
+            // Login button
+            document.getElementById('loginBtn').addEventListener('click', loginUser);
+            
+            // Logout button
+            document.getElementById('logoutBtn').addEventListener('click', logoutUser);
+            
+            // Generate key button
+            document.getElementById('generateBtn').addEventListener('click', generateKey);
+            
+            // Cost calculation
+            document.getElementById('maxDevices').addEventListener('change', updateCost);
+            document.getElementById('duration').addEventListener('change', updateCost);
+            
+            // Tab switching
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', switchTab);
+            });
+            
+            // Check key button
+            document.getElementById('checkKeyBtn').addEventListener('click', checkKey);
+        }
+        
+        // Show registration form
+        function showRegisterForm() {
+            document.getElementById('loginPanel').style.display = 'none';
+            document.getElementById('registerPanel').style.display = 'block';
+        }
+        
+        // Show login form
+        function showLoginForm() {
+            document.getElementById('registerPanel').style.display = 'none';
+            document.getElementById('loginPanel').style.display = 'block';
+        }
+        
+        // Register a new user
+        function registerUser() {
+            const username = document.getElementById('regUsername').value.trim();
+            const fullName = document.getElementById('regFullname').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('regConfirmPassword').value;
+            const referralCode = document.getElementById('referralCode').value.trim();
+            
+            // Validate inputs
+            if (!username || !fullName || !password || !confirmPassword) {
+                showNotification('Please fill in all fields', 'error');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showNotification('Passwords do not match', 'error');
+                return;
+            }
+            
+            if (username.includes(' ')) {
+                showNotification('Username cannot contain spaces', 'error');
+                return;
+            }
+            
+            // Check if username exists
+            const users = getUsers();
+            if (users.some(user => user.username === username)) {
+                showNotification('Username already exists', 'error');
+                return;
+            }
+            
+            // Create new user
+            const newUser = {
+                id: Date.now(),
+                username,
+                fullName,
+                password,
+                balance: 0,
+                referralCode: generateReferralCode(username),
+                keys: [],
+                isOwner: false
+            };
+            
+            // Apply referral bonus if valid
+            if (referralCode) {
+                const referrer = users.find(user => user.referralCode === referralCode);
+                if (referrer) {
+                    // Owner referral gives 500,000 MMK
+                    if (referrer.referralCode === "OWNER-REF-001") {
+                        newUser.balance = 500000;
+                        showNotification('Owner referral bonus applied! 500,000 MMK added to your account', 'success');
+                    } else {
+                        // Regular referral gives 100,000 MMK
+                        newUser.balance = 100000;
+                        showNotification('Referral bonus applied! 100,000 MMK added to your account', 'success');
+                    }
+                    
+                    // Add bonus to referrer
+                    referrer.balance += 50000;
+                    saveUsers(users);
+                } else {
+                    showNotification('Invalid referral code', 'error');
+                }
+            }
+            
+            // Save the new user
+            users.push(newUser);
+            saveUsers(users);
+            
+            showNotification('Account created successfully!', 'success');
+            
+            // Switch to login form
+            showLoginForm();
+        }
+        
+        // Generate referral code
+        function generateReferralCode(username) {
+            return username.toUpperCase() + '-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+        }
+        
+        // Login user
+        function loginUser() {
+            const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             
-            if(username && password) {
-                document.getElementById('loginPanel').style.display = 'none';
-                document.getElementById('dashboardPanel').style.display = 'block';
-                document.getElementById('userName').textContent = username;
-                
-                // Show notification
+            if (!username || !password) {
+                showNotification('Please enter both username and password', 'error');
+                return;
+            }
+            
+            const users = getUsers();
+            const user = users.find(u => u.username === username && u.password === password);
+            
+            if (user) {
+                currentUser = user;
+                showDashboard();
                 showNotification('Login successful! Welcome back, ' + username, 'success');
             } else {
-                showNotification('Please enter both username and password', 'error');
+                showNotification('Invalid username or password', 'error');
             }
-        });
+        }
         
-        // Generate key functionality
-        document.getElementById('generateBtn').addEventListener('click', function() {
-            const username = document.getElementById('userName').textContent || 'sail';
+        // Logout user
+        function logoutUser() {
+            currentUser = null;
+            document.getElementById('dashboardPanel').style.display = 'none';
+            document.getElementById('loginPanel').style.display = 'block';
+            
+            // Clear form fields
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+        
+        // Show dashboard
+        function showDashboard() {
+            document.getElementById('loginPanel').style.display = 'none';
+            document.getElementById('registerPanel').style.display = 'none';
+            document.getElementById('dashboardPanel').style.display = 'block';
+            
+            // Update user info
+            document.getElementById('userName').textContent = currentUser.username;
+            document.getElementById('userBalance').textContent = currentUser.balance.toLocaleString() + ' MMK';
+            document.getElementById('keyCount').textContent = currentUser.keys.length;
+            document.getElementById('accountFullName').value = currentUser.fullName;
+            document.getElementById('userReferral').value = currentUser.referralCode;
+            
+            // Load keys
+            loadUserKeys();
+        }
+        
+        // Load user keys
+        function loadUserKeys() {
+            const keyList = document.getElementById('keyList');
+            keyList.innerHTML = '';
+            
+            if (currentUser.keys.length === 0) {
+                keyList.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--accent);">No keys generated yet</div>';
+                return;
+            }
+            
+            currentUser.keys.forEach(key => {
+                const keyItem = document.createElement('div');
+                keyItem.className = 'key-item';
+                keyItem.innerHTML = `
+                    <div class="key-code">${key.value}</div>
+                    <div class="key-actions">
+                        <div class="key-btn copy-btn" title="Copy Key">
+                            <i class="fas fa-copy"></i>
+                        </div>
+                        <div class="key-btn delete-btn" title="Delete Key">
+                            <i class="fas fa-trash"></i>
+                        </div>
+                    </div>
+                `;
+                
+                // Add event listeners
+                keyItem.querySelector('.copy-btn').addEventListener('click', function() {
+                    navigator.clipboard.writeText(key.value);
+                    showNotification('Key copied to clipboard!', 'success');
+                });
+                
+                keyItem.querySelector('.delete-btn').addEventListener('click', function() {
+                    deleteKey(key.value);
+                });
+                
+                keyList.appendChild(keyItem);
+            });
+        }
+        
+        // Delete a key
+        function deleteKey(keyValue) {
+            currentUser.keys = currentUser.keys.filter(k => k.value !== keyValue);
+            
+            // Update user in storage
+            const users = getUsers();
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+                saveUsers(users);
+            }
+            
+            loadUserKeys();
+            showNotification('Key deleted!', 'success');
+        }
+        
+        // Update cost calculation
+        function updateCost() {
+            const devices = parseInt(document.getElementById('maxDevices').value);
+            const duration = parseInt(document.getElementById('duration').value);
+            
+            // Calculate cost
+            let cost = 0;
+            
+            // Device cost
+            if (devices === 1) cost += 10000;
+            else if (devices === 2) cost += 18000;
+            else if (devices === 3) cost += 25000;
+            else if (devices === 5) cost += 40000;
+            
+            // Duration cost
+            if (duration === 1) cost += 5000;
+            else if (duration === 3) cost += 12000;
+            else if (duration === 7) cost += 25000;
+            else if (duration === 30) cost += 80000;
+            
+            document.getElementById('totalCost').textContent = cost.toLocaleString() + ' MMK';
+        }
+        
+        // Generate a key
+        function generateKey() {
+            if (!currentUser) return;
+            
+            const devices = parseInt(document.getElementById('maxDevices').value);
+            const duration = parseInt(document.getElementById('duration').value);
+            
+            // Calculate cost
+            let cost = 0;
+            
+            // Device cost
+            if (devices === 1) cost += 10000;
+            else if (devices === 2) cost += 18000;
+            else if (devices === 3) cost += 25000;
+            else if (devices === 5) cost += 40000;
+            
+            // Duration cost
+            if (duration === 1) cost += 5000;
+            else if (duration === 3) cost += 12000;
+            else if (duration === 7) cost += 25000;
+            else if (duration === 30) cost += 80000;
+            
+            // Check balance
+            if (currentUser.balance < cost) {
+                showNotification('Insufficient balance!', 'error');
+                return;
+            }
+            
+            // Deduct cost
+            currentUser.balance -= cost;
+            
+            // Get current day
             const today = new Date();
             const day = today.getDate();
             
@@ -943,82 +1225,79 @@
                 randomPart += chars.charAt(Math.floor(Math.random() * chars.length));
             }
             
-            // Create key in the format: username-day-randomPart
-            const generatedKey = `${username.toLowerCase()}-${day}-${randomPart}`;
+            // Create key in the required format: username>day-random5
+            const generatedKey = `${currentUser.username}>${day}-${randomPart}`;
+            
+            // Save the key
+            const keyData = {
+                value: generatedKey,
+                devices: devices,
+                duration: duration,
+                generated: new Date().toISOString(),
+                expires: new Date(Date.now() + duration * 24 * 60 * 60 * 1000).toISOString()
+            };
+            
+            currentUser.keys.push(keyData);
+            
+            // Update user in storage
+            const users = getUsers();
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+                saveUsers(users);
+            }
+            
+            // Update UI
+            document.getElementById('userBalance').textContent = currentUser.balance.toLocaleString() + ' MMK';
+            document.getElementById('keyCount').textContent = currentUser.keys.length;
             
             const keyDisplay = document.getElementById('generatedKey');
             keyDisplay.textContent = generatedKey;
             keyDisplay.style.display = 'block';
             
-            // Add key to the key list
-            addKeyToList(generatedKey);
+            // Add to key list
+            loadUserKeys();
             
             showNotification('Key generated successfully!', 'success');
-        });
-        
-        // Add key to list function
-        function addKeyToList(key) {
-            const keyList = document.getElementById('keyList');
-            
-            const keyItem = document.createElement('div');
-            keyItem.className = 'key-item';
-            keyItem.innerHTML = `
-                <div class="key-code">${key}</div>
-                <div class="key-actions">
-                    <div class="key-btn copy-btn" title="Copy Key">
-                        <i class="fas fa-copy"></i>
-                    </div>
-                    <div class="key-btn delete-btn" title="Delete Key">
-                        <i class="fas fa-trash"></i>
-                    </div>
-                </div>
-            `;
-            
-            keyList.prepend(keyItem);
-            
-            // Add event listeners to new buttons
-            keyItem.querySelector('.copy-btn').addEventListener('click', function() {
-                navigator.clipboard.writeText(key);
-                showNotification('Key copied to clipboard!', 'success');
-            });
-            
-            keyItem.querySelector('.delete-btn').addEventListener('click', function() {
-                keyItem.remove();
-                showNotification('Key deleted!', 'success');
-            });
         }
         
-        // Key validation function
-        document.getElementById('checkKeyBtn').addEventListener('click', function() {
-            const keyToCheck = document.getElementById('keyCheck').value;
-            const keyPattern = /^[a-z]{4,}-\d{1,2}-[A-Z0-9]{5}$/;
+        // Check key validity
+        function checkKey() {
+            const keyToCheck = document.getElementById('keyCheck').value.trim();
+            
+            if (!keyToCheck) {
+                showNotification('Please enter a key to check', 'error');
+                return;
+            }
+            
+            // Check if key matches the format: word>number-word
+            const keyPattern = /^\w+>\d+-\w{5}$/;
             
             if (keyPattern.test(keyToCheck)) {
                 showNotification('Key is valid!', 'success');
             } else {
                 showNotification('Invalid key format!', 'error');
             }
-        });
+        }
         
-        // Copy key functionality for existing keys
-        document.querySelectorAll('.copy-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const key = this.closest('.key-item').querySelector('.key-code').textContent;
-                navigator.clipboard.writeText(key);
-                showNotification('Key copied to clipboard!', 'success');
+        // Switch tabs
+        function switchTab(e) {
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            // Add active class to clicked tab
+            e.target.classList.add('active');
+            
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
             });
-        });
+            
+            // Show the corresponding tab content
+            const tabId = e.target.getAttribute('data-tab');
+            document.getElementById(`${tabId}Tab`).classList.add('active');
+        }
         
-        // Delete key functionality for existing keys
-        document.querySelectorAll('.delete-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const keyItem = this.closest('.key-item');
-                keyItem.remove();
-                showNotification('Key deleted!', 'success');
-            });
-        });
-        
-        // Show notification function
+        // Show notification
         function showNotification(message, type = '') {
             const notification = document.getElementById('notification');
             notification.textContent = message;
@@ -1034,32 +1313,6 @@
                 notification.classList.remove('show');
             }, 3000);
         }
-        
-        // Change password functionality
-        document.getElementById('changePasswordBtn').addEventListener('click', function() {
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmNewPassword').value;
-            
-            if (newPassword && newPassword === confirmPassword) {
-                showNotification('Password changed successfully!', 'success');
-                // Clear the password fields
-                document.getElementById('newPassword').value = '';
-                document.getElementById('confirmNewPassword').value = '';
-                document.getElementById('currentPassword').value = '';
-            } else {
-                showNotification('Passwords do not match!', 'error');
-            }
-        });
-        
-        // Update account functionality
-        document.getElementById('updateAccountBtn').addEventListener('click', function() {
-            const fullName = document.getElementById('accountFullName').value;
-            if (fullName) {
-                showNotification('Account information updated!', 'success');
-            } else {
-                showNotification('Please enter your full name', 'error');
-            }
-        });
     </script>
 </body>
 </html>
