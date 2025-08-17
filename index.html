@@ -29,11 +29,29 @@
             color: var(--text);
             min-height: 100vh;
             padding: 20px;
+            overflow-x: hidden;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+            min-height: 90vh;
+        }
+        
+        .page {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.5s ease;
+            pointer-events: none;
+        }
+        
+        .page.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: all;
         }
         
         header {
@@ -79,6 +97,15 @@
             padding: 15px;
             margin: 20px 0;
             border: 1px solid var(--danger);
+            transition: all 0.5s ease;
+        }
+        
+        .expiry-warning.hidden {
+            opacity: 0;
+            height: 0;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
         }
         
         .expiry-countdown {
@@ -203,23 +230,28 @@
             margin-top: 5px;
         }
         
-        .generate-btn {
-            grid-column: span 2;
+        .btn {
             background: linear-gradient(45deg, var(--accent), var(--highlight));
             color: white;
             border: none;
-            padding: 15px;
+            padding: 15px 25px;
             border-radius: 10px;
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 10px;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
         }
         
-        .generate-btn:hover {
+        .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
         }
         
         .key-display {
@@ -386,51 +418,228 @@
             50% { opacity: 0.5; }
             100% { opacity: 1; }
         }
+        
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(10, 10, 30, 0.8);
+            border-radius: 15px;
+        }
+        
+        .nav-btn {
+            padding: 10px 20px;
+            background: rgba(15, 52, 96, 0.5);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background: var(--accent);
+        }
+        
+        .nav-btn.active {
+            background: var(--highlight);
+        }
+        
+        .page-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .page-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+        }
+        
+        .page-dot.active {
+            background: var(--highlight);
+        }
+        
+        .login-form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 30px;
+            background: rgba(10, 10, 30, 0.8);
+            border-radius: 15px;
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--highlight);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .form-footer a {
+            color: var(--highlight);
+            text-decoration: none;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1 class="panel-title">VENOM VIP PANEL</h1>
-            <p class="subtitle">PUBG Mobile Mod Keys · Fast & Reliable</p>
-            
-            <div class="expiry-warning">
-                <p><i class="fas fa-exclamation-triangle blink"></i> This panel will expire soon! Please join our Telegram for updates.</p>
-                <p><strong>Expires on:</strong> 2025-09-11 23:59:59</p>
+        <div class="nav-bar">
+            <div class="nav-btn active" data-page="main">Main Panel</div>
+            <div class="nav-btn" data-page="keys">Key Generator</div>
+            <div class="nav-btn" data-page="account">Account</div>
+            <div class="nav-btn" data-page="history">History</div>
+        </div>
+        
+        <div class="page active" id="main-page">
+            <header>
+                <h1 class="panel-title">VENOM VIP PANEL</h1>
+                <p class="subtitle">PUBG Mobile Mod Keys · Fast & Reliable</p>
                 
-                <div class="expiry-countdown">
-                    <div class="countdown-box">
-                        <div class="countdown-value" id="days">24</div>
-                        <div class="countdown-label">DAYS</div>
+                <div class="expiry-warning" id="expiryWarning">
+                    <p><i class="fas fa-exclamation-triangle blink"></i> This panel will expire soon! Please join our Telegram for updates.</p>
+                    <p><strong>Expires on:</strong> 2025-09-11 23:59:59</p>
+                    
+                    <div class="expiry-countdown">
+                        <div class="countdown-box">
+                            <div class="countdown-value" id="days">24</div>
+                            <div class="countdown-label">DAYS</div>
+                        </div>
+                        <div class="countdown-box">
+                            <div class="countdown-value" id="hours">19</div>
+                            <div class="countdown-label">HOURS</div>
+                        </div>
+                        <div class="countdown-box">
+                            <div class="countdown-value" id="minutes">26</div>
+                            <div class="countdown-label">MINUTES</div>
+                        </div>
+                        <div class="countdown-box">
+                            <div class="countdown-value" id="seconds">30</div>
+                            <div class="countdown-label">SECONDS</div>
+                        </div>
                     </div>
-                    <div class="countdown-box">
-                        <div class="countdown-value" id="hours">19</div>
-                        <div class="countdown-label">HOURS</div>
+                    
+                    <div class="btn-group">
+                        <a href="https://t.me/c1111111c1" class="telegram-btn">
+                            <i class="fab fa-telegram"></i> Join Telegram Channel
+                        </a>
+                        <button class="btn btn-secondary" id="alreadyJoinedBtn">Already Joined</button>
                     </div>
-                    <div class="countdown-box">
-                        <div class="countdown-value" id="minutes">26</div>
-                        <div class="countdown-label">MINUTES</div>
+                </div>
+            </header>
+            
+            <div class="panel-content">
+                <div class="card">
+                    <h2 class="card-title">Welcome to VIP Panel</h2>
+                    <div class="welcome-message">
+                        Welcome <strong>sail</strong>! You have access to premium PUBG Mobile mod keys
                     </div>
-                    <div class="countdown-box">
-                        <div class="countdown-value" id="seconds">30</div>
-                        <div class="countdown-label">SECONDS</div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-label">Account Balance</div>
+                            <div class="stat-value">478,461 MMK</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">Keys Generated</div>
+                            <div class="stat-value">1076</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">Used Keys</div>
+                            <div class="stat-value">1065</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">Unused Keys</div>
+                            <div class="stat-value">11</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 30px; text-align: center;">
+                        <p>Your account expires in:</p>
+                        <div style="font-size: 1.8rem; color: var(--highlight); font-weight: bold;">
+                            24 Days 19:26:53
+                        </div>
                     </div>
                 </div>
                 
-                <a href="https://t.me/c1111111c1" class="telegram-btn">
-                    <i class="fab fa-telegram"></i> Join Telegram Channel
-                </a>
-                <p>Already Joined? Stay tuned for updates!</p>
+                <div class="card">
+                    <h2 class="card-title">Recent Key History</h2>
+                    
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Game</th>
+                                <th>User</th>
+                                <th>Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#3812534</td>
+                                <td>PUBG</td>
+                                <td>RASD-**</td>
+                                <td>3 Days</td>
+                            </tr>
+                            <tr>
+                                <td>#3812533</td>
+                                <td>PUBG</td>
+                                <td>Dcmod**</td>
+                                <td>3 Days</td>
+                            </tr>
+                            <tr>
+                                <td>#3812532</td>
+                                <td>PUBG</td>
+                                <td>Isoeo**</td>
+                                <td>30 Days</td>
+                            </tr>
+                            <tr>
+                                <td>#3812531</td>
+                                <td>PUBG</td>
+                                <td>sgad-**</td>
+                                <td>30 Days</td>
+                            </tr>
+                            <tr>
+                                <td>#3812530</td>
+                                <td>PUBG</td>
+                                <td>Anup-**</td>
+                                <td>2 Hours</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <button class="btn" style="width: 100%; margin-top: 20px;">
+                        View Full History
+                    </button>
+                </div>
             </div>
-        </header>
+        </div>
         
-        <div class="panel-content">
-            <div>
+        <div class="page" id="keys-page">
+            <header>
+                <h1 class="panel-title">KEY GENERATOR</h1>
+                <p class="subtitle">Create PUBG Mobile Mod Keys</p>
+            </header>
+            
+            <div class="panel-content">
                 <div class="card">
                     <h2 class="card-title">Generate Mod Key</h2>
-                    <div class="welcome-message">
-                        Welcome <strong>sail</strong>! Generate your PUBG Mobile mod keys
-                    </div>
                     
                     <div class="key-generator">
                         <div class="form-group">
@@ -467,7 +676,7 @@
                             <input type="number" id="keyAmount" min="1" value="1">
                         </div>
                         
-                        <button class="generate-btn" id="generateBtn">
+                        <button class="btn" id="generateBtn" style="grid-column: span 2;">
                             <i class="fas fa-key"></i> Generate Key
                         </button>
                     </div>
@@ -478,9 +687,19 @@
                 </div>
                 
                 <div class="card">
-                    <h2 class="card-title">Check Key Validity</h2>
-                    <p>Enter a key to check its validity and status</p>
+                    <h2 class="card-title">Pricing</h2>
+                    <div style="margin-top: 20px; line-height: 2.5;">
+                        <div><i class="fas fa-clock"></i> 2 Hours – 1000 MMK/Device</div>
+                        <div><i class="fas fa-clock"></i> 5 Hours – 2000 MMK/Device</div>
+                        <div><i class="fas fa-clock"></i> 12 Hours – 5000 MMK/Device</div>
+                        <div><i class="fas fa-clock"></i> 1 Day – 8000 MMK/Device</div>
+                        <div><i class="fas fa-clock"></i> 3 Days – 15000 MMK/Device</div>
+                        <div><i class="fas fa-clock"></i> 7 Days – 25000 MMK/Device</div>
+                        <div><i class="fas fa-clock"></i> 14 Days – 35000 MMK/Device</div>
+                        <div><i class="fas fa-clock"></i> 30 Days – 50000 MMK/Device</div>
+                    </div>
                     
+                    <h2 class="card-title" style="margin-top: 30px;">Check Key Validity</h2>
                     <div class="check-key">
                         <input type="text" class="check-input" id="keyInput" placeholder="Enter key...">
                         <button class="check-btn" id="checkBtn">
@@ -493,39 +712,94 @@
                     </div>
                 </div>
             </div>
+        </div>
+        
+        <div class="page" id="account-page">
+            <header>
+                <h1 class="panel-title">ACCOUNT SETTINGS</h1>
+                <p class="subtitle">Manage your account information</p>
+            </header>
             
-            <div>
+            <div class="panel-content">
                 <div class="card">
                     <h2 class="card-title">Account Information</h2>
                     
+                    <div class="welcome-message">
+                        <i class="fas fa-user-circle" style="font-size: 3rem;"></i>
+                        <h3 style="margin: 10px 0;">sail</h3>
+                        <p>VIP Reseller Account</p>
+                    </div>
+                    
                     <div class="stats-grid">
                         <div class="stat-box">
-                            <div class="stat-label">Balance</div>
-                            <div class="stat-value">478,461 MMK</div>
+                            <div class="stat-label">Account Created</div>
+                            <div class="stat-value">2025-08-10</div>
                         </div>
                         <div class="stat-box">
-                            <div class="stat-label">Keys Generated</div>
-                            <div class="stat-value">11</div>
+                            <div class="stat-label">Account Expires</div>
+                            <div class="stat-value">2025-09-11</div>
                         </div>
                         <div class="stat-box">
-                            <div class="stat-label">Active Keys</div>
-                            <div class="stat-value">7</div>
+                            <div class="stat-label">Total Spent</div>
+                            <div class="stat-value">1,250,000 MMK</div>
                         </div>
                         <div class="stat-box">
-                            <div class="stat-label">Expired Keys</div>
-                            <div class="stat-value">4</div>
+                            <div class="stat-label">Referral Code</div>
+                            <div class="stat-value">mwlYsv</div>
                         </div>
                     </div>
                     
-                    <div style="margin-top: 20px;">
-                        <h3><i class="fas fa-user"></i> User Details</h3>
-                        <p><strong>Username:</strong> sail</p>
-                        <p><strong>Account Type:</strong> VIP Reseller</p>
-                        <p><strong>Last Login:</strong> Just now</p>
-                        <p><strong>Auto Logout:</strong> in 29 minutes</p>
+                    <div style="margin-top: 30px;">
+                        <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                        <p style="margin-top: 10px;"><i class="fas fa-key"></i> Generated 5 keys - Today 10:25 AM</p>
+                        <p><i class="fas fa-sign-in-alt"></i> Logged in - Today 09:45 AM</p>
+                        <p><i class="fas fa-sync-alt"></i> Password changed - Yesterday</p>
                     </div>
                 </div>
                 
+                <div class="card">
+                    <h2 class="card-title">Change Password</h2>
+                    
+                    <div class="form-group">
+                        <label for="currentPassword">Current Password</label>
+                        <input type="password" id="currentPassword" placeholder="Enter current password">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newPassword">New Password</label>
+                        <input type="password" id="newPassword" placeholder="Enter new password">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" placeholder="Confirm new password">
+                    </div>
+                    
+                    <button class="btn" style="width: 100%;">
+                        <i class="fas fa-sync-alt"></i> Update Password
+                    </button>
+                    
+                    <h2 class="card-title" style="margin-top: 30px;">Account Actions</h2>
+                    
+                    <div style="margin-top: 20px;">
+                        <button class="btn btn-secondary" style="width: 100%; margin-bottom: 10px;">
+                            <i class="fas fa-question-circle"></i> Get Support
+                        </button>
+                        <button class="btn btn-secondary" style="width: 100%;">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page" id="history-page">
+            <header>
+                <h1 class="panel-title">KEY HISTORY</h1>
+                <p class="subtitle">View your generated keys</p>
+            </header>
+            
+            <div class="panel-content">
                 <div class="card">
                     <h2 class="card-title">Generated Keys</h2>
                     
@@ -535,7 +809,7 @@
                 </div>
                 
                 <div class="card">
-                    <h2 class="card-title">Key History</h2>
+                    <h2 class="card-title">Key Usage History</h2>
                     
                     <table class="history-table">
                         <thead>
@@ -544,6 +818,7 @@
                                 <th>Game</th>
                                 <th>User</th>
                                 <th>Duration</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -552,33 +827,42 @@
                                 <td>PUBG</td>
                                 <td>Anup-**</td>
                                 <td>2 Hours</td>
+                                <td><span style="color: var(--success);">Active</span></td>
                             </tr>
                             <tr>
                                 <td>#3812529</td>
                                 <td>PUBG</td>
                                 <td>Irfan**</td>
                                 <td>2 Hours</td>
+                                <td><span style="color: var(--danger);">Expired</span></td>
                             </tr>
                             <tr>
                                 <td>#3812528</td>
                                 <td>PUBG</td>
                                 <td>SAHIL**</td>
                                 <td>14 Days</td>
+                                <td><span style="color: var(--success);">Active</span></td>
                             </tr>
                             <tr>
                                 <td>#3812527</td>
                                 <td>PUBG</td>
                                 <td>Raj68**</td>
                                 <td>7 Days</td>
+                                <td><span style="color: var(--warning);">Pending</span></td>
                             </tr>
                             <tr>
                                 <td>#3812526</td>
                                 <td>PUBG</td>
                                 <td>Raj68**</td>
                                 <td>2 Hours</td>
+                                <td><span style="color: var(--danger);">Expired</span></td>
                             </tr>
                         </tbody>
                     </table>
+                    
+                    <button class="btn" style="width: 100%; margin-top: 20px;">
+                        <i class="fas fa-trash"></i> Clear History
+                    </button>
                 </div>
             </div>
         </div>
@@ -586,6 +870,13 @@
         <div class="footer">
             <p>© Mon 18-Aug 2025 - VENOM PRATAP | PUBG Mobile Mod Key Generator</p>
             <p>This panel is for VIP members only. Unauthorized access is prohibited.</p>
+        </div>
+        
+        <div class="page-indicator">
+            <div class="page-dot active" data-page="main"></div>
+            <div class="page-dot" data-page="keys"></div>
+            <div class="page-dot" data-page="account"></div>
+            <div class="page-dot" data-page="history"></div>
         </div>
     </div>
     
@@ -751,515 +1042,56 @@
         
         // Initialize sample keys
         addSampleKeys();
-    </script>
-</body>
-</html>            font-size: 1.2rem;
-            color: #00ff00;
-            margin: 15px 0;
-            padding: 10px;
-            background: rgba(0, 40, 0, 0.4);
-            border-radius: 10px;
-            border: 1px solid #00aa00;
+        
+        // Page navigation
+        const pages = document.querySelectorAll('.page');
+        const navBtns = document.querySelectorAll('.nav-btn');
+        const pageDots = document.querySelectorAll('.page-dot');
+        
+        function showPage(pageId) {
+            // Hide all pages
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show requested page
+            document.getElementById(pageId + '-page').classList.add('active');
+            
+            // Update nav buttons
+            navBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.dataset.page === pageId) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Update page dots
+            pageDots.forEach(dot => {
+                dot.classList.remove('active');
+                if(dot.dataset.page === pageId) {
+                    dot.classList.add('active');
+                }
+            });
         }
         
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .countdown {
-                gap: 10px;
-                flex-wrap: wrap;
-            }
-            
-            .countdown-item {
-                min-width: 70px;
-                padding: 10px;
-            }
-            
-            .countdown-value {
-                font-size: 1.5rem;
-            }
-            
-            .tab-container {
-                justify-content: center;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>SK9 VIP PANEL</h1>
-            <p>Cheapest Hosting II Domain Services</p>
-        </div>
-        
-        <!-- Login Section -->
-        <div class="panel" id="loginPanel">
-            <h2 class="panel-title">Welcome Baby</h2>
-            
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" class="form-control" placeholder="Your username">
-            </div>
-            
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" class="form-control" placeholder="Your password">
-            </div>
-            
-            <div class="checkbox-group">
-                <input type="checkbox" id="stayLogin">
-                <label for="stayLogin">Stay login</label>
-            </div>
-            
-            <button class="btn" id="loginBtn">Login</button>
-            
-            <div class="link-text">
-                Don't have an account? <a href="#" id="showRegister">Register here</a>
-            </div>
-            
-            <a href="#" class="apk-download">
-                <i class="fas fa-download"></i> Download APK
-            </a>
-            
-            <div class="link-text">
-                JOIN UPDATES - <a href="#">[TBLECRAM]</a>
-            </div>
-        </div>
-        
-        <!-- Registration Section -->
-        <div class="panel" id="registerPanel" style="display:none">
-            <h2 class="panel-title">Create Account</h2>
-            
-            <div class="form-group">
-                <label for="regUsername">Username - No Spaces</label>
-                <input type="text" id="regUsername" class="form-control" placeholder="Enter username">
-            </div>
-            
-            <div class="form-group">
-                <label for="fullName">Full Name - No Spaces</label>
-                <input type="text" id="fullName" class="form-control" placeholder="Enter full name">
-            </div>
-            
-            <div class="form-group">
-                <label for="regPassword">Password</label>
-                <input type="password" id="regPassword" class="form-control" placeholder="Enter password">
-            </div>
-            
-            <div class="form-group">
-                <label for="confirmPassword">Confirm Password</label>
-                <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm password">
-            </div>
-            
-            <div class="form-group">
-                <label for="referralCode">Referral Code</label>
-                <input type="text" id="referralCode" class="form-control" value="sk9 bank vip">
-            </div>
-            
-            <button class="btn" id="registerBtn">Register</button>
-            
-            <div class="link-text">
-                Already have an account? <a href="#" id="showLogin">Login here</a>
-            </div>
-        </div>
-        
-        <!-- Dashboard Section -->
-        <div class="panel" id="dashboardPanel" style="display:none">
-            <div class="account-expire">
-                Account Expires on : 2026-09-11 23:59:59
-            </div>
-            
-            <h2 class="panel-title">Welcome <span id="userName">lurn</span></h2>
-            
-            <div class="countdown">
-                <div class="countdown-item">
-                    <div class="countdown-value" id="days">30</div>
-                    <div class="countdown-label">Days</div>
-                </div>
-                <div class="countdown-item">
-                    <div class="countdown-value" id="hours">24</div>
-                    <div class="countdown-label">Hours</div>
-                </div>
-                <div class="countdown-item">
-                    <div class="countdown-value" id="minutes">0</div>
-                    <div class="countdown-label">Minutes</div>
-                </div>
-                <div class="countdown-item">
-                    <div class="countdown-value" id="seconds">01</div>
-                    <div class="countdown-label">Seconds</div>
-                </div>
-            </div>
-            
-            <div class="tab-container">
-                <div class="tab active" data-tab="dashboard">Dashboard</div>
-                <div class="tab" data-tab="generate">Generate Keys</div>
-                <div class="tab" data-tab="keys">My Keys</div>
-                <div class="tab" data-tab="settings">Settings</div>
-            </div>
-            
-            <!-- Dashboard Tab -->
-            <div class="tab-content active" id="dashboardTab">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-label">TOTAL KEYS</div>
-                        <div class="stat-value">1205</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">USED KEYS</div>
-                        <div class="stat-value">1061</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">UN-USED KEYS</div>
-                        <div class="stat-value">144</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">TOTAL USERS</div>
-                        <div class="stat-value">1425</div>
-                    </div>
-                </div>
-                
-                <h3 class="panel-title" style="font-size:1.5rem">History</h3>
-                
-                <table class="history-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Game</th>
-                            <th>User</th>
-                            <th>Duration</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>#3812525</td>
-                            <td>PUBG</td>
-                            <td>Sarva**</td>
-                            <td>1 Day</td>
-                        </tr>
-                        <tr>
-                            <td>#3812524</td>
-                            <td>PUBG</td>
-                            <td>@PUBG**</td>
-                            <td>3 Days</td>
-                        </tr>
-                        <tr>
-                            <td>#3812523</td>
-                            <td>PUBG</td>
-                            <td>REDTE**</td>
-                            <td>7 Days</td>
-                        </tr>
-                        <tr>
-                            <td>#3812522</td>
-                            <td>PUBG</td>
-                            <td>ASD12**</td>
-                            <td>30 Days</td>
-                        </tr>
-                        <tr>
-                            <td>#3812521</td>
-                            <td>PUBG</td>
-                            <td>AigoI**</td>
-                            <td>30 Days</td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <button class="delete-history">Delete All History Records</button>
-                
-                <div class="info-grid">
-                    <div class="info-card">
-                        <h3 style="color:#00ff00; margin-bottom:15px; text-align:center">Information</h3>
-                        <div class="info-row">
-                            <span class="info-label">ROLE</span>
-                            <span class="info-value">Reseller</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">BALANCE</span>
-                            <span class="info-value">$478461619</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">LOGIN TIME</span>
-                            <span class="info-value">Just now</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">AUTO LOG-OUT</span>
-                            <span class="info-value">in 23 hours</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Generate Keys Tab -->
-            <div class="tab-content" id="generateTab">
-                <h3 class="panel-title" style="font-size:1.5rem">Create License</h3>
-                
-                <div class="form-group">
-                    <label for="game">Game</label>
-                    <select id="game" class="form-control">
-                        <option value="pubg" selected>PUBG Mobile</option>
-                        <option value="cod">Call of Duty Mobile</option>
-                        <option value="ff">Free Fire</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="maxDevices">Max Devices</label>
-                    <select id="maxDevices" class="form-control">
-                        <option value="1" selected>1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="duration">Duration</label>
-                    <select id="duration" class="form-control">
-                        <option value="2">2 Hours - ₹10/Device</option>
-                        <option value="6">6 Hours - ₹25/Device</option>
-                        <option value="24">1 Day - ₹50/Device</option>
-                        <option value="72">3 Days - ₹120/Device</option>
-                        <option value="168">7 Days - ₹250/Device</option>
-                        <option value="720">30 Days - ₹1000/Device</option>
-                    </select>_
-                </div>
-                
-                <div class="checkbox-group">
-                    <input type="checkbox" id="customKey" checked>
-                    <label for="customKey">Custom Key</label>
-                </div>
-                
-                <div class="checkbox-group">
-                    <input type="checkbox" id="bulkKeys">
-                    <label for="bulkKeys">Bulk Keys</label>
-                </div>
-                
-                <div class="form-group" id="keysCountGroup" style="display:none">
-                    <label for="keysCount">Number of Keys</label>
-                    <input type="number" id="keysCount" class="form-control" value="1" min="1" max="100">
-                </div>
-                
-                <div class="form-group">
-                    <label>Estimation</label>
-                    <div class="stat-value" style="font-size:1.8rem; text-align:center">₹10</div>
-                </div>
-                
-                <button class="btn btn-generate" id="generateBtn">Generate</button>
-                
-                <div class="key-display" id="generatedKey" style="display:none">
-                    PUBG-8X2D-F9K3-L7M1-4Z6Q
-                </div>
-            </div>
-            
-            <!-- My Keys Tab -->
-            <div class="tab-content" id="keysTab">
-                <h3 class="panel-title" style="font-size:1.5rem">Keys Registered</h3>
-                
-                <div class="key-display">
-                    Nothing keys to show
-                </div>
-            </div>
-            
-            <!-- Settings Tab -->
-            <div class="tab-content" id="settingsTab">
-                <h3 class="panel-title" style="font-size:1.5rem">Change Password</h3>
-                
-                <div class="form-group">
-                    <label for="currentPassword">Current Password</label>
-                    <input type="password" id="currentPassword" class="form-control" placeholder="Current Password">
-                </div>
-                
-                <div class="form-group">
-                    <label for="newPassword">New Password</label>
-                    <input type="password" id="newPassword" class="form-control" placeholder="New Password">
-                </div>
-                
-                <div class="form-group">
-                    <label for="confirmNewPassword">Confirm Password</label>
-                    <input type="password" id="confirmNewPassword" class="form-control" placeholder="Confirm Password">
-                </div>
-                
-                <button class="btn" id="changePasswordBtn">Change Password</button>
-                
-                <h3 class="panel-title" style="font-size:1.5rem; margin-top:30px">Account Information</h3>
-                
-                <div class="form-group">
-                    <label for="accountFullName">Full Name</label>
-                    <input type="text" id="accountFullName" class="form-control" value="lurn">
-                </div>
-                
-                <button class="btn" id="updateAccountBtn">Update Account</button>
-            </div>
-        </div>
-        
-        <div class="footer">
-            © Mon 18-Aug 2025 - VENOM PRATAP
-        </div>
-    </div>
-    
-    <div class="notification" id="notification">
-        Key generated successfully!
-    </div>
-    
-    <script>
-        // Tab switching functionality
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Remove active class from all tabs
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                // Add active class to clicked tab
-                tab.classList.add('active');
-                
-                // Hide all tab contents
-                document.querySelectorAll('.tab-content').forEach(content => {
-                    content.classList.remove('active');
-                });
-                
-                // Show the corresponding tab content
-                const tabId = tab.getAttribute('data-tab');
-                document.getElementById(`${tabId}Tab`).classList.add('active');
+        // Add event listeners to nav buttons
+        navBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                showPage(btn.dataset.page);
             });
         });
         
-        // Toggle bulk keys field
-        document.getElementById('bulkKeys').addEventListener('change', function() {
-            document.getElementById('keysCountGroup').style.display = this.checked ? 'block' : 'none';
+        // Add event listeners to page dots
+        pageDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                showPage(dot.dataset.page);
+            });
         });
         
-        // Show registration panel
-        document.getElementById('showRegister').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('loginPanel').style.display = 'none';
-            document.getElementById('registerPanel').style.display = 'block';
+        // Handle "Already Joined" button
+        document.getElementById('alreadyJoinedBtn').addEventListener('click', function() {
+            document.getElementById('expiryWarning').classList.add('hidden');
         });
-        
-        // Show login panel
-        document.getElementById('showLogin').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('registerPanel').style.display = 'none';
-            document.getElementById('loginPanel').style.display = 'block';
-        });
-        
-        // Login functionality
-        document.getElementById('loginBtn').addEventListener('click', function() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            if(username && password) {
-                document.getElementById('loginPanel').style.display = 'none';
-                document.getElementById('dashboardPanel').style.display = 'block';
-                document.getElementById('userName').textContent = username;
-                
-                // Start countdown timer
-                startCountdown();
-            } else {
-                showNotification('Please enter username and password');
-            }
-        });
-        
-        // Registration functionality
-        document.getElementById('registerBtn').addEventListener('click', function() {
-            const username = document.getElementById('regUsername').value;
-            const fullName = document.getElementById('fullName').value;
-            const password = document.getElementById('regPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if(!username || !fullName || !password || !confirmPassword) {
-                showNotification('Please fill all fields');
-                return;
-            }
-            
-            if(password !== confirmPassword) {
-                showNotification('Passwords do not match');
-                return;
-            }
-            
-            if(username.includes(' ') || fullName.includes(' ')) {
-                showNotification('Username and Full Name cannot contain spaces');
-                return;
-            }
-            
-            showNotification('Account created successfully!');
-            
-            // After registration, show login panel
-            setTimeout(() => {
-                document.getElementById('registerPanel').style.display = 'none';
-                document.getElementById('loginPanel').style.display = 'block';
-                document.getElementById('username').value = username;
-                document.getElementById('password').value = password;
-            }, 1500);
-        });
-        
-        // Generate key functionality
-        document.getElementById('generateBtn').addEventListener('click', function() {
-            const generatedKey = document.getElementById('generatedKey');
-            generatedKey.style.display = 'block';
-            generatedKey.textContent = generateKey();
-            
-            showNotification('Key generated successfully!');
-        });
-        
-        // Show notification
-        function showNotification(message) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-        
-        // Generate random key
-        function generateKey() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let key = 'PUBG-';
-            
-            for(let i = 0; i < 16; i++) {
-                key += chars.charAt(Math.floor(Math.random() * chars.length));
-                if(i === 3 || i === 7 || i === 11) key += '-';
-            }
-            
-            return key;
-        }
-        
-        // Countdown timer
-        function startCountdown() {
-            const daysEl = document.getElementById('days');
-            const hoursEl = document.getElementById('hours');
-            const minutesEl = document.getElementById('minutes');
-            const secondsEl = document.getElementById('seconds');
-            
-            let days = 24;
-            let hours = 22;
-            let minutes = 10;
-            let seconds = 1;
-            
-            function updateTimer() {
-                seconds--;
-                if(seconds < 0) {
-                    seconds = 59;
-                    minutes--;
-                    if(minutes < 0) {
-                        minutes = 59;
-                        hours--;
-                        if(hours < 0) {
-                            hours = 23;
-                            days--;
-                        }
-                    }
-                }
-                
-                daysEl.textContent = days.toString().padStart(2, '0');
-                hoursEl.textContent = hours.toString().padStart(2, '0');
-                minutesEl.textContent = minutes.toString().padStart(2, '0');
-                secondsEl.textContent = seconds.toString().padStart(2, '0');
-            }
-            
-            // Update timer every second
-            setInterval(updateTimer, 1000);
-        }
     </script>
 </body>
 </html>
