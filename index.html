@@ -5,30 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VENOM VIP PANEL - PUBG Mod Key Generator</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Roboto', sans-serif;
         }
         
         :root {
-            --primary: #1a1a2e;
-            --secondary: #16213e;
-            --accent: #0f3460;
-            --highlight: #e94560;
-            --text: #f1f1f1;
-            --success: #2ecc71;
-            --warning: #f39c12;
-            --danger: #e74c3c;
+            --primary: #0d1b2a;
+            --secondary: #1b263b;
+            --accent: #415a77;
+            --highlight: #e63946;
+            --text: #f1faee;
+            --success: #2a9d8f;
+            --warning: #e9c46a;
+            --danger: #e76f51;
+            --neon: #00ff9d;
         }
         
         body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background: radial-gradient(circle at center, #0d1b2a, #0a1120);
             color: var(--text);
             min-height: 100vh;
             padding: 20px;
+            background-attachment: fixed;
             overflow-x: hidden;
         }
         
@@ -36,1061 +39,1026 @@
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
-            min-height: 90vh;
         }
         
-        .page {
-            position: absolute;
-            width: 100%;
-            opacity: 0;
-            transform: translateX(20px);
-            transition: all 0.5s ease;
-            pointer-events: none;
-        }
-        
-        .page.active {
-            opacity: 1;
-            transform: translateX(0);
-            pointer-events: all;
-        }
-        
-        header {
-            background: rgba(10, 10, 30, 0.8);
-            border-radius: 15px;
-            padding: 20px;
+        /* Header styling */
+        .header {
             text-align: center;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px 0;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--neon), 0 0 20px rgba(0, 255, 157, 0.5);
+            color: var(--neon);
+            position: relative;
+            display: inline-block;
+            padding: 0 20px;
+        }
+        
+        .header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--neon), transparent);
+            border-radius: 50%;
+        }
+        
+        .header p {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-top: 15px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        
+        /* Panel styling */
+        .panel {
+            background: rgba(19, 33, 54, 0.85);
+            border-radius: 15px;
+            border: 1px solid rgba(65, 90, 119, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            margin-bottom: 30px;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
         
-        header::before {
-            content: "";
+        .panel::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 4px;
-            background: linear-gradient(90deg, var(--accent), var(--highlight));
+            background: linear-gradient(90deg, var(--neon), var(--accent));
         }
         
         .panel-title {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            background: linear-gradient(45deg, #ff8a00, #e52e71);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        
-        .subtitle {
-            color: #aaa;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-        }
-        
-        .expiry-warning {
-            background: rgba(231, 76, 60, 0.2);
-            border-radius: 10px;
-            padding: 15px;
-            margin: 20px 0;
-            border: 1px solid var(--danger);
-            transition: all 0.5s ease;
-        }
-        
-        .expiry-warning.hidden {
-            opacity: 0;
-            height: 0;
-            padding: 0;
-            margin: 0;
-            overflow: hidden;
-        }
-        
-        .expiry-countdown {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 15px 0;
-        }
-        
-        .countdown-box {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 10px 15px;
-            border-radius: 8px;
-            min-width: 80px;
-            text-align: center;
-        }
-        
-        .countdown-value {
+            color: var(--neon);
+            font-family: 'Orbitron', sans-serif;
             font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--highlight);
-        }
-        
-        .countdown-label {
-            font-size: 0.8rem;
-            color: #aaa;
-        }
-        
-        .telegram-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #0088cc;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            margin: 15px 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
-        }
-        
-        .telegram-btn:hover {
-            background: #0077b3;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 136, 204, 0.6);
-        }
-        
-        .panel-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
-        
-        @media (max-width: 768px) {
-            .panel-content {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .card {
-            background: rgba(10, 10, 30, 0.8);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .card-title {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--accent);
-            color: var(--highlight);
-        }
-        
-        .welcome-message {
+            margin-bottom: 25px;
             text-align: center;
-            padding: 15px;
-            background: rgba(15, 52, 96, 0.3);
-            border-radius: 10px;
-            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            padding-bottom: 15px;
         }
         
-        .key-generator {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+        .panel-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon), transparent);
         }
         
-        @media (max-width: 480px) {
-            .key-generator {
-                grid-template-columns: 1fr;
-            }
-        }
-        
+        /* Form styling */
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 25px;
         }
         
-        label {
+        .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: #ccc;
+            margin-bottom: 10px;
+            color: var(--accent);
+            font-weight: 500;
+            font-size: 1.1rem;
         }
         
-        select, input {
+        .form-control {
             width: 100%;
-            padding: 12px 15px;
-            border-radius: 8px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 1rem;
-        }
-        
-        .price-display {
-            color: var(--highlight);
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-top: 5px;
-        }
-        
-        .btn {
-            background: linear-gradient(45deg, var(--accent), var(--highlight));
-            color: white;
-            border: none;
-            padding: 15px 25px;
+            padding: 14px 18px;
+            background: rgba(11, 22, 39, 0.7);
+            border: 1px solid rgba(65, 90, 119, 0.5);
             border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            color: var(--text);
+            font-size: 1.05rem;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--neon);
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .checkbox-group input {
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+            accent-color: var(--neon);
+        }
+        
+        .checkbox-group label {
+            color: var(--accent);
+            font-size: 1.05rem;
+        }
+        
+        /* Button styling */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--neon), #00c97c);
+            border: none;
+            border-radius: 10px;
+            color: var(--primary);
+            font-size: 1.15rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            display: inline-block;
-            text-decoration: none;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin: 25px 0;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.4);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: all 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
         }
         
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 255, 157, 0.6);
         }
         
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
+        .btn:active {
+            transform: translateY(1px);
         }
         
+        /* Key display styling */
         .key-display {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
+            background: rgba(11, 22, 39, 0.7);
+            padding: 25px;
             border-radius: 10px;
-            margin-top: 20px;
+            border: 2px dashed var(--neon);
+            margin: 30px 0;
             text-align: center;
-            font-size: 1.3rem;
-            font-weight: bold;
-            letter-spacing: 1px;
+            font-size: 1.6rem;
+            color: var(--neon);
+            letter-spacing: 2px;
             word-break: break-all;
-            border: 1px dashed var(--highlight);
+            font-family: 'Courier New', monospace;
+            position: relative;
+            display: none;
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.2);
         }
         
-        .history-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+        .key-display::before {
+            content: 'Generated Key';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--secondary);
+            padding: 0 15px;
+            font-size: 1rem;
+            color: var(--accent);
+            font-family: 'Roboto', sans-serif;
         }
         
-        .history-table th {
-            background: rgba(15, 52, 96, 0.5);
-            padding: 12px;
-            text-align: left;
-        }
-        
-        .history-table td {
-            padding: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .history-table tr:nth-child(even) {
-            background: rgba(0, 0, 0, 0.2);
-        }
-        
-        .check-key {
+        /* Tab styling */
+        .tab-container {
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         
-        .check-input {
-            flex: 1;
-        }
-        
-        .check-btn {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 0 20px;
-            border-radius: 8px;
+        .tab {
+            padding: 14px 30px;
+            background: rgba(27, 38, 59, 0.7);
+            border: 1px solid var(--accent);
+            border-radius: 10px;
             cursor: pointer;
-        }
-        
-        .result-box {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            min-width: 180px;
             text-align: center;
-            font-weight: bold;
         }
         
-        .valid {
-            background: rgba(46, 204, 113, 0.2);
-            border: 1px solid var(--success);
-            color: var(--success);
+        .tab:hover, .tab.active {
+            background: rgba(0, 255, 157, 0.1);
+            border-color: var(--neon);
+            color: var(--neon);
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.2);
         }
         
-        .invalid {
-            background: rgba(231, 76, 60, 0.2);
-            border: 1px solid var(--danger);
-            color: var(--danger);
+        .tab.active {
+            background: rgba(0, 255, 157, 0.15);
         }
         
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Stats grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
         }
         
-        .stat-box {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            padding: 15px;
+        .stat-card {
+            background: rgba(11, 22, 39, 0.7);
+            border-radius: 15px;
+            padding: 25px;
             text-align: center;
+            border: 1px solid var(--accent);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--neon);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: var(--neon);
         }
         
         .stat-value {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--highlight);
-            margin: 10px 0;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--neon);
+            margin: 15px 0;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
         }
         
         .stat-label {
-            color: #ccc;
-            font-size: 0.9rem;
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-weight: 500;
         }
         
+        /* History table */
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: rgba(11, 22, 39, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .history-table th {
+            background: rgba(27, 38, 59, 0.8);
+            padding: 16px 20px;
+            text-align: left;
+            color: var(--neon);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        .history-table td {
+            padding: 14px 20px;
+            border-bottom: 1px solid rgba(65, 90, 119, 0.3);
+            color: var(--text);
+        }
+        
+        .history-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .history-table tr:hover {
+            background: rgba(27, 38, 59, 0.4);
+        }
+        
+        /* Footer styling */
         .footer {
             text-align: center;
+            padding: 30px 0 20px;
+            color: var(--accent);
+            font-size: 1rem;
+            border-top: 1px solid rgba(65, 90, 119, 0.3);
             margin-top: 30px;
-            padding: 20px;
-            color: #aaa;
-            font-size: 0.9rem;
         }
         
+        .footer p {
+            margin: 5px 0;
+        }
+        
+        /* Notification styling */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 30px;
+            background: rgba(19, 33, 54, 0.95);
+            border: 1px solid var(--neon);
+            border-radius: 10px;
+            color: var(--neon);
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+            max-width: 350px;
+            font-weight: 500;
+            backdrop-filter: blur(5px);
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.success {
+            border-color: var(--success);
+            color: var(--success);
+        }
+        
+        .notification.error {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+        
+        /* Telegram button */
+        .telegram-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #0088cc;
+            color: white;
+            padding: 14px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 15px 0;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
+            position: relative;
+            overflow: hidden;
+            font-size: 1.1rem;
+        }
+        
+        .telegram-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: all 0.5s;
+        }
+        
+        .telegram-btn:hover::before {
+            left: 100%;
+        }
+        
+        .telegram-btn:hover {
+            background: #0077b3;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 136, 204, 0.6);
+        }
+        
+        /* Key list styling */
         .key-list {
-            max-height: 300px;
-            overflow-y: auto;
-            padding-right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 25px 0;
         }
         
         .key-item {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            font-family: monospace;
+            background: rgba(11, 22, 39, 0.7);
+            border-radius: 10px;
+            padding: 18px 20px;
+            border: 1px solid var(--accent);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .key-item:hover {
+            border-color: var(--neon);
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.1);
+        }
+        
+        .key-code {
+            font-family: 'Courier New', monospace;
+            font-size: 1.3rem;
+            color: var(--neon);
+            letter-spacing: 1px;
         }
         
         .key-actions {
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
         
         .key-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            width: 30px;
-            height: 30px;
+            background: rgba(27, 38, 59, 0.7);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
         }
         
         .key-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(0, 255, 157, 0.1);
+            border-color: var(--neon);
+            color: var(--neon);
         }
         
-        .highlight {
-            animation: highlight 2s ease;
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .panel {
+                padding: 20px;
+            }
+            
+            .tab {
+                padding: 12px 20px;
+                min-width: 140px;
+                font-size: 0.95rem;
+            }
+            
+            .stat-value {
+                font-size: 2.2rem;
+            }
+            
+            .history-table th, .history-table td {
+                padding: 12px 15px;
+                font-size: 0.95rem;
+            }
+            
+            .key-code {
+                font-size: 1.1rem;
+            }
         }
         
-        @keyframes highlight {
-            0% { background: rgba(233, 69, 96, 0.3); }
-            100% { background: transparent; }
-        }
-        
-        .blink {
-            animation: blink 1s infinite;
-        }
-        
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-        
-        .nav-bar {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: rgba(10, 10, 30, 0.8);
-            border-radius: 15px;
-        }
-        
-        .nav-btn {
-            padding: 10px 20px;
-            background: rgba(15, 52, 96, 0.5);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-btn:hover {
-            background: var(--accent);
-        }
-        
-        .nav-btn.active {
-            background: var(--highlight);
-        }
-        
-        .page-indicator {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
-        }
-        
-        .page-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            cursor: pointer;
-        }
-        
-        .page-dot.active {
-            background: var(--highlight);
-        }
-        
-        .login-form {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 30px;
-            background: rgba(10, 10, 30, 0.8);
-            border-radius: 15px;
-        }
-        
-        .form-title {
-            text-align: center;
-            margin-bottom: 20px;
-            color: var(--highlight);
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-footer {
-            text-align: center;
-            margin-top: 20px;
-        }
-        
-        .form-footer a {
-            color: var(--highlight);
-            text-decoration: none;
-        }
-        
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .panel-title {
+                font-size: 1.5rem;
+            }
+            
+            .tab {
+                width: 100%;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .history-table {
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="nav-bar">
-            <div class="nav-btn active" data-page="main">Main Panel</div>
-            <div class="nav-btn" data-page="keys">Key Generator</div>
-            <div class="nav-btn" data-page="account">Account</div>
-            <div class="nav-btn" data-page="history">History</div>
+        <div class="header">
+            <h1>VENOM VIP PANEL</h1>
+            <p>PUBG Mobile Mod Key Generator</p>
         </div>
         
-        <div class="page active" id="main-page">
-            <header>
-                <h1 class="panel-title">VENOM VIP PANEL</h1>
-                <p class="subtitle">PUBG Mobile Mod Keys · Fast & Reliable</p>
-                
-                <div class="expiry-warning" id="expiryWarning">
-                    <p><i class="fas fa-exclamation-triangle blink"></i> This panel will expire soon! Please join our Telegram for updates.</p>
-                    <p><strong>Expires on:</strong> 2025-09-11 23:59:59</p>
-                    
-                    <div class="expiry-countdown">
-                        <div class="countdown-box">
-                            <div class="countdown-value" id="days">24</div>
-                            <div class="countdown-label">DAYS</div>
-                        </div>
-                        <div class="countdown-box">
-                            <div class="countdown-value" id="hours">19</div>
-                            <div class="countdown-label">HOURS</div>
-                        </div>
-                        <div class="countdown-box">
-                            <div class="countdown-value" id="minutes">26</div>
-                            <div class="countdown-label">MINUTES</div>
-                        </div>
-                        <div class="countdown-box">
-                            <div class="countdown-value" id="seconds">30</div>
-                            <div class="countdown-label">SECONDS</div>
-                        </div>
-                    </div>
-                    
-                    <div class="btn-group">
-                        <a href="https://t.me/c1111111c1" class="telegram-btn">
-                            <i class="fab fa-telegram"></i> Join Telegram Channel
-                        </a>
-                        <button class="btn btn-secondary" id="alreadyJoinedBtn">Already Joined</button>
-                    </div>
-                </div>
-            </header>
+        <!-- Login Panel -->
+        <div class="panel" id="loginPanel">
+            <h2 class="panel-title">Login to VIP Panel</h2>
             
-            <div class="panel-content">
-                <div class="card">
-                    <h2 class="card-title">Welcome to VIP Panel</h2>
-                    <div class="welcome-message">
-                        Welcome <strong>sail</strong>! You have access to premium PUBG Mobile mod keys
-                    </div>
-                    
-                    <div class="stats-grid">
-                        <div class="stat-box">
-                            <div class="stat-label">Account Balance</div>
-                            <div class="stat-value">478,461 MMK</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-label">Keys Generated</div>
-                            <div class="stat-value">1076</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-label">Used Keys</div>
-                            <div class="stat-value">1065</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-label">Unused Keys</div>
-                            <div class="stat-value">11</div>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-top: 30px; text-align: center;">
-                        <p>Your account expires in:</p>
-                        <div style="font-size: 1.8rem; color: var(--highlight); font-weight: bold;">
-                            24 Days 19:26:53
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <h2 class="card-title">Recent Key History</h2>
-                    
-                    <table class="history-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Game</th>
-                                <th>User</th>
-                                <th>Duration</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>#3812534</td>
-                                <td>PUBG</td>
-                                <td>RASD-**</td>
-                                <td>3 Days</td>
-                            </tr>
-                            <tr>
-                                <td>#3812533</td>
-                                <td>PUBG</td>
-                                <td>Dcmod**</td>
-                                <td>3 Days</td>
-                            </tr>
-                            <tr>
-                                <td>#3812532</td>
-                                <td>PUBG</td>
-                                <td>Isoeo**</td>
-                                <td>30 Days</td>
-                            </tr>
-                            <tr>
-                                <td>#3812531</td>
-                                <td>PUBG</td>
-                                <td>sgad-**</td>
-                                <td>30 Days</td>
-                            </tr>
-                            <tr>
-                                <td>#3812530</td>
-                                <td>PUBG</td>
-                                <td>Anup-**</td>
-                                <td>2 Hours</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    
-                    <button class="btn" style="width: 100%; margin-top: 20px;">
-                        View Full History
-                    </button>
-                </div>
+            <div class="form-group">
+                <label for="username"><i class="fas fa-user"></i> Username</label>
+                <input type="text" id="username" class="form-control" placeholder="Enter your username">
+            </div>
+            
+            <div class="form-group">
+                <label for="password"><i class="fas fa-lock"></i> Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Enter your password">
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="stayLogin">
+                <label for="stayLogin">Keep me logged in</label>
+            </div>
+            
+            <button class="btn" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            
+            <div style="text-align: center; margin: 20px 0;">
+                <a href="https://t.me/c1111111c1" class="telegram-btn">
+                    <i class="fab fa-telegram"></i> Join Telegram Channel
+                </a>
+            </div>
+            
+            <div style="text-align: center; color: var(--accent); margin-top: 20px;">
+                Don't have an account? <a href="#" id="showRegister" style="color: var(--neon); text-decoration: none;">Register here</a>
             </div>
         </div>
         
-        <div class="page" id="keys-page">
-            <header>
-                <h1 class="panel-title">KEY GENERATOR</h1>
-                <p class="subtitle">Create PUBG Mobile Mod Keys</p>
-            </header>
+        <!-- Dashboard Panel (Hidden Initially) -->
+        <div class="panel" id="dashboardPanel" style="display:none">
+            <div style="background: rgba(231, 76, 60, 0.15); padding: 15px; border-radius: 10px; border: 1px solid var(--danger); margin-bottom: 25px;">
+                <p style="text-align: center; color: var(--danger); font-weight: 500;">
+                    <i class="fas fa-exclamation-triangle"></i> Account Expires on: 2025-09-11 23:59:59
+                </p>
+            </div>
             
-            <div class="panel-content">
-                <div class="card">
-                    <h2 class="card-title">Generate Mod Key</h2>
-                    
-                    <div class="key-generator">
-                        <div class="form-group">
-                            <label for="game">Game</label>
-                            <select id="game">
-                                <option>PUBG Mobile</option>
-                                <option>PUBG Mobile Lite</option>
-                                <option>BGMI (India)</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="duration">Duration</label>
-                            <select id="duration">
-                                <option value="2" data-price="1000">2 Hours</option>
-                                <option value="5" data-price="2000">5 Hours</option>
-                                <option value="12" data-price="5000">12 Hours</option>
-                                <option value="1" data-price="8000">1 Day</option>
-                                <option value="3" data-price="15000">3 Days</option>
-                                <option value="7" data-price="25000">7 Days</option>
-                                <option value="14" data-price="35000">14 Days</option>
-                                <option value="30" data-price="50000">30 Days</option>
-                            </select>
-                            <div class="price-display" id="priceDisplay">Price: 1000 MMK</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="maxDevices">Max Devices</label>
-                            <input type="number" id="maxDevices" min="1" value="1">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="keyAmount">Number of Keys</label>
-                            <input type="number" id="keyAmount" min="1" value="1">
-                        </div>
-                        
-                        <button class="btn" id="generateBtn" style="grid-column: span 2;">
-                            <i class="fas fa-key"></i> Generate Key
-                        </button>
+            <h2 class="panel-title">Welcome, <span id="userName" style="color: var(--neon);">Player</span></h2>
+            
+            <div class="tab-container">
+                <div class="tab active" data-tab="dashboard">Dashboard</div>
+                <div class="tab" data-tab="generate">Generate Keys</div>
+                <div class="tab" data-tab="keys">My Keys</div>
+                <div class="tab" data-tab="settings">Settings</div>
+            </div>
+            
+            <!-- Dashboard Tab -->
+            <div class="tab-content active" id="dashboardTab">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">TOTAL KEYS</div>
+                        <div class="stat-value">1,205</div>
                     </div>
-                    
-                    <div class="key-display" id="keyDisplay">
-                        Your key will appear here
+                    <div class="stat-card">
+                        <div class="stat-label">USED KEYS</div>
+                        <div class="stat-value">1,061</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">UN-USED KEYS</div>
+                        <div class="stat-value">144</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">TOTAL USERS</div>
+                        <div class="stat-value">1,425</div>
                     </div>
                 </div>
                 
-                <div class="card">
-                    <h2 class="card-title">Pricing</h2>
-                    <div style="margin-top: 20px; line-height: 2.5;">
-                        <div><i class="fas fa-clock"></i> 2 Hours – 1000 MMK/Device</div>
-                        <div><i class="fas fa-clock"></i> 5 Hours – 2000 MMK/Device</div>
-                        <div><i class="fas fa-clock"></i> 12 Hours – 5000 MMK/Device</div>
-                        <div><i class="fas fa-clock"></i> 1 Day – 8000 MMK/Device</div>
-                        <div><i class="fas fa-clock"></i> 3 Days – 15000 MMK/Device</div>
-                        <div><i class="fas fa-clock"></i> 7 Days – 25000 MMK/Device</div>
-                        <div><i class="fas fa-clock"></i> 14 Days – 35000 MMK/Device</div>
-                        <div><i class="fas fa-clock"></i> 30 Days – 50000 MMK/Device</div>
+                <h3 class="panel-title" style="font-size:1.5rem">Recent Key History</h3>
+                
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Game</th>
+                            <th>User</th>
+                            <th>Duration</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#3812525</td>
+                            <td>PUBG</td>
+                            <td>Sarva**</td>
+                            <td>1 Day</td>
+                            <td style="color: var(--success);">Active</td>
+                        </tr>
+                        <tr>
+                            <td>#3812524</td>
+                            <td>PUBG</td>
+                            <td>@PUBG**</td>
+                            <td>3 Days</td>
+                            <td style="color: var(--warning);">Pending</td>
+                        </tr>
+                        <tr>
+                            <td>#3812523</td>
+                            <td>PUBG</td>
+                            <td>REDTE**</td>
+                            <td>7 Days</td>
+                            <td style="color: var(--success);">Active</td>
+                        </tr>
+                        <tr>
+                            <td>#3812522</td>
+                            <td>PUBG</td>
+                            <td>ASD12**</td>
+                            <td>30 Days</td>
+                            <td style="color: var(--danger);">Expired</td>
+                        </tr>
+                        <tr>
+                            <td>#3812521</td>
+                            <td>PUBG</td>
+                            <td>AigoI**</td>
+                            <td>30 Days</td>
+                            <td style="color: var(--success);">Active</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Account Balance</div>
+                        <div class="stat-value">478,461 MMK</div>
                     </div>
-                    
-                    <h2 class="card-title" style="margin-top: 30px;">Check Key Validity</h2>
-                    <div class="check-key">
-                        <input type="text" class="check-input" id="keyInput" placeholder="Enter key...">
-                        <button class="check-btn" id="checkBtn">
-                            <i class="fas fa-check"></i> Check
-                        </button>
-                    </div>
-                    
-                    <div class="result-box" id="resultBox">
-                        Result will appear here
+                    <div class="stat-card">
+                        <div class="stat-label">Account Status</div>
+                        <div class="stat-value" style="color: var(--success);">VIP</div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="page" id="account-page">
-            <header>
-                <h1 class="panel-title">ACCOUNT SETTINGS</h1>
-                <p class="subtitle">Manage your account information</p>
-            </header>
             
-            <div class="panel-content">
-                <div class="card">
-                    <h2 class="card-title">Account Information</h2>
-                    
-                    <div class="welcome-message">
-                        <i class="fas fa-user-circle" style="font-size: 3rem;"></i>
-                        <h3 style="margin: 10px 0;">sail</h3>
-                        <p>VIP Reseller Account</p>
+            <!-- Generate Keys Tab -->
+            <div class="tab-content" id="generateTab">
+                <h3 class="panel-title" style="font-size:1.5rem">Generate Mod Key</h3>
+                
+                <div class="form-group">
+                    <label for="game"><i class="fas fa-gamepad"></i> Game</label>
+                    <select id="game" class="form-control">
+                        <option value="pubg" selected>PUBG Mobile</option>
+                        <option value="cod">Call of Duty Mobile</option>
+                        <option value="ff">Free Fire</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="maxDevices"><i class="fas fa-mobile-alt"></i> Max Devices</label>
+                    <select id="maxDevices" class="form-control">
+                        <option value="1" selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="duration"><i class="fas fa-clock"></i> Duration</label>
+                    <select id="duration" class="form-control">
+                        <option value="2">2 Hours - 1,000 MMK/Device</option>
+                        <option value="6">6 Hours - 2,500 MMK/Device</option>
+                        <option value="24">1 Day - 5,000 MMK/Device</option>
+                        <option value="72">3 Days - 12,000 MMK/Device</option>
+                        <option value="168">7 Days - 25,000 MMK/Device</option>
+                        <option value="720">30 Days - 100,000 MMK/Device</option>
+                    </select>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="customKey" checked>
+                    <label for="customKey">Custom Key Format</label>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="bulkKeys">
+                    <label for="bulkKeys">Generate Multiple Keys</label>
+                </div>
+                
+                <button class="btn" id="generateBtn">
+                    <i class="fas fa-key"></i> Generate Key
+                </button>
+                
+                <div class="key-display" id="generatedKey">
+                    Key will appear here
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="https://t.me/c1111111c1" class="telegram-btn">
+                        <i class="fab fa-telegram"></i> Join Telegram for Support
+                    </a>
+                </div>
+            </div>
+            
+            <!-- My Keys Tab -->
+            <div class="tab-content" id="keysTab">
+                <h3 class="panel-title" style="font-size:1.5rem">My Generated Keys</h3>
+                
+                <div class="key-list" id="keyList">
+                    <div class="key-item">
+                        <div class="key-code">sail-18-AB3D5</div>
+                        <div class="key-actions">
+                            <div class="key-btn copy-btn" title="Copy Key">
+                                <i class="fas fa-copy"></i>
+                            </div>
+                            <div class="key-btn delete-btn" title="Delete Key">
+                                <i class="fas fa-trash"></i>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="stats-grid">
-                        <div class="stat-box">
-                            <div class="stat-label">Account Created</div>
-                            <div class="stat-value">2025-08-10</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-label">Account Expires</div>
-                            <div class="stat-value">2025-09-11</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-label">Total Spent</div>
-                            <div class="stat-value">1,250,000 MMK</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-label">Referral Code</div>
-                            <div class="stat-value">mwlYsv</div>
+                    <div class="key-item">
+                        <div class="key-code">sail-18-XY9Z1</div>
+                        <div class="key-actions">
+                            <div class="key-btn copy-btn" title="Copy Key">
+                                <i class="fas fa-copy"></i>
+                            </div>
+                            <div class="key-btn delete-btn" title="Delete Key">
+                                <i class="fas fa-trash"></i>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div style="margin-top: 30px;">
-                        <h3><i class="fas fa-history"></i> Recent Activity</h3>
-                        <p style="margin-top: 10px;"><i class="fas fa-key"></i> Generated 5 keys - Today 10:25 AM</p>
-                        <p><i class="fas fa-sign-in-alt"></i> Logged in - Today 09:45 AM</p>
-                        <p><i class="fas fa-sync-alt"></i> Password changed - Yesterday</p>
+                    <div class="key-item">
+                        <div class="key-code">sail-17-K8J7H</div>
+                        <div class="key-actions">
+                            <div class="key-btn copy-btn" title="Copy Key">
+                                <i class="fas fa-copy"></i>
+                            </div>
+                            <div class="key-btn delete-btn" title="Delete Key">
+                                <i class="fas fa-trash"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="card">
-                    <h2 class="card-title">Change Password</h2>
-                    
-                    <div class="form-group">
-                        <label for="currentPassword">Current Password</label>
-                        <input type="password" id="currentPassword" placeholder="Enter current password">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="newPassword">New Password</label>
-                        <input type="password" id="newPassword" placeholder="Enter new password">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="confirmPassword">Confirm Password</label>
-                        <input type="password" id="confirmPassword" placeholder="Confirm new password">
-                    </div>
-                    
-                    <button class="btn" style="width: 100%;">
-                        <i class="fas fa-sync-alt"></i> Update Password
-                    </button>
-                    
-                    <h2 class="card-title" style="margin-top: 30px;">Account Actions</h2>
-                    
-                    <div style="margin-top: 20px;">
-                        <button class="btn btn-secondary" style="width: 100%; margin-bottom: 10px;">
-                            <i class="fas fa-question-circle"></i> Get Support
-                        </button>
-                        <button class="btn btn-secondary" style="width: 100%;">
-                            <i class="fas fa-sign-out-alt"></i> Logout
+                <div class="form-group" style="margin-top: 30px;">
+                    <label for="keyCheck"><i class="fas fa-check-circle"></i> Check Key Validity</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="keyCheck" class="form-control" placeholder="Enter key to check">
+                        <button id="checkKeyBtn" style="background: var(--accent); border: none; border-radius: 10px; padding: 0 20px; color: white; cursor: pointer;">
+                            Check
                         </button>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="page" id="history-page">
-            <header>
-                <h1 class="panel-title">KEY HISTORY</h1>
-                <p class="subtitle">View your generated keys</p>
-            </header>
             
-            <div class="panel-content">
-                <div class="card">
-                    <h2 class="card-title">Generated Keys</h2>
-                    
-                    <div class="key-list" id="keyList">
-                        <!-- Keys will be dynamically added here -->
-                    </div>
+            <!-- Settings Tab -->
+            <div class="tab-content" id="settingsTab">
+                <h3 class="panel-title" style="font-size:1.5rem">Account Settings</h3>
+                
+                <div class="form-group">
+                    <label for="currentPassword"><i class="fas fa-lock"></i> Current Password</label>
+                    <input type="password" id="currentPassword" class="form-control" placeholder="Enter current password">
                 </div>
                 
-                <div class="card">
-                    <h2 class="card-title">Key Usage History</h2>
-                    
-                    <table class="history-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Game</th>
-                                <th>User</th>
-                                <th>Duration</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>#3812530</td>
-                                <td>PUBG</td>
-                                <td>Anup-**</td>
-                                <td>2 Hours</td>
-                                <td><span style="color: var(--success);">Active</span></td>
-                            </tr>
-                            <tr>
-                                <td>#3812529</td>
-                                <td>PUBG</td>
-                                <td>Irfan**</td>
-                                <td>2 Hours</td>
-                                <td><span style="color: var(--danger);">Expired</span></td>
-                            </tr>
-                            <tr>
-                                <td>#3812528</td>
-                                <td>PUBG</td>
-                                <td>SAHIL**</td>
-                                <td>14 Days</td>
-                                <td><span style="color: var(--success);">Active</span></td>
-                            </tr>
-                            <tr>
-                                <td>#3812527</td>
-                                <td>PUBG</td>
-                                <td>Raj68**</td>
-                                <td>7 Days</td>
-                                <td><span style="color: var(--warning);">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>#3812526</td>
-                                <td>PUBG</td>
-                                <td>Raj68**</td>
-                                <td>2 Hours</td>
-                                <td><span style="color: var(--danger);">Expired</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    
-                    <button class="btn" style="width: 100%; margin-top: 20px;">
-                        <i class="fas fa-trash"></i> Clear History
-                    </button>
+                <div class="form-group">
+                    <label for="newPassword"><i class="fas fa-key"></i> New Password</label>
+                    <input type="password" id="newPassword" class="form-control" placeholder="Enter new password">
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmNewPassword"><i class="fas fa-key"></i> Confirm New Password</label>
+                    <input type="password" id="confirmNewPassword" class="form-control" placeholder="Confirm new password">
+                </div>
+                
+                <button class="btn" id="changePasswordBtn">
+                    <i class="fas fa-sync-alt"></i> Change Password
+                </button>
+                
+                <h3 class="panel-title" style="font-size:1.5rem; margin-top:30px">Account Information</h3>
+                
+                <div class="form-group">
+                    <label for="accountFullName"><i class="fas fa-user"></i> Full Name</label>
+                    <input type="text" id="accountFullName" class="form-control" value="lurn">
+                </div>
+                
+                <button class="btn" id="updateAccountBtn">
+                    <i class="fas fa-save"></i> Update Account
+                </button>
+                
+                <div style="margin-top: 30px; text-align: center;">
+                    <a href="https://t.me/c1111111c1" class="telegram-btn">
+                        <i class="fab fa-telegram"></i> Contact Support
+                    </a>
                 </div>
             </div>
         </div>
         
         <div class="footer">
-            <p>© Mon 18-Aug 2025 - VENOM PRATAP | PUBG Mobile Mod Key Generator</p>
+            <p>© Mon 18-Aug 2025 - VENOM PRATAP</p>
             <p>This panel is for VIP members only. Unauthorized access is prohibited.</p>
-        </div>
-        
-        <div class="page-indicator">
-            <div class="page-dot active" data-page="main"></div>
-            <div class="page-dot" data-page="keys"></div>
-            <div class="page-dot" data-page="account"></div>
-            <div class="page-dot" data-page="history"></div>
         </div>
     </div>
     
+    <div class="notification" id="notification">
+        Key generated successfully!
+    </div>
+    
     <script>
-        // Key generation function
-        function generateKey() {
-            const username = "sail";
-            const date = new Date();
-            const day = date.getDate();
-            const randomPart = Math.random().toString(36).substring(2, 7).toUpperCase();
+        // Tab switching functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Hide all tab contents
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Show the corresponding tab content
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(`${tabId}Tab`).classList.add('active');
+            });
+        });
+        
+        // Login functionality
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
             
-            return `${username}-${day}-${randomPart}`;
-        }
+            if(username && password) {
+                document.getElementById('loginPanel').style.display = 'none';
+                document.getElementById('dashboardPanel').style.display = 'block';
+                document.getElementById('userName').textContent = username;
+                
+                // Show notification
+                showNotification('Login successful! Welcome back, ' + username, 'success');
+            } else {
+                showNotification('Please enter both username and password', 'error');
+            }
+        });
         
-        // Update price display
-        function updatePrice() {
-            const durationSelect = document.getElementById('duration');
-            const selectedOption = durationSelect.options[durationSelect.selectedIndex];
-            const price = selectedOption.getAttribute('data-price');
-            document.getElementById('priceDisplay').textContent = `Price: ${parseInt(price).toLocaleString()} MMK`;
-        }
-        
-        // Generate key on button click
+        // Generate key functionality
         document.getElementById('generateBtn').addEventListener('click', function() {
-            const keyAmount = parseInt(document.getElementById('keyAmount').value) || 1;
-            let keys = [];
+            const username = document.getElementById('userName').textContent || 'sail';
+            const today = new Date();
+            const day = today.getDate();
             
-            for(let i = 0; i < keyAmount; i++) {
-                const newKey = generateKey();
-                keys.push(newKey);
-                
-                // Add to key list
-                const keyItem = document.createElement('div');
-                keyItem.className = 'key-item';
-                keyItem.innerHTML = `
-                    <div>${newKey}</div>
-                    <div class="key-actions">
-                        <button class="key-btn copy-btn" title="Copy Key">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                        <button class="key-btn delete-btn" title="Delete Key">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                `;
-                document.getElementById('keyList').prepend(keyItem);
-                
-                // Add event listeners for the new buttons
-                keyItem.querySelector('.copy-btn').addEventListener('click', function() {
-                    navigator.clipboard.writeText(newKey);
-                    alert('Key copied to clipboard!');
-                });
-                
-                keyItem.querySelector('.delete-btn').addEventListener('click', function() {
-                    keyItem.remove();
-                });
+            // Generate random 5-character string
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let randomPart = '';
+            for (let i = 0; i < 5; i++) {
+                randomPart += chars.charAt(Math.floor(Math.random() * chars.length));
             }
             
-            // Display the first key in the display area
-            document.getElementById('keyDisplay').textContent = keys[0];
-            document.getElementById('keyDisplay').classList.add('highlight');
+            // Create key in the format: username-day-randomPart
+            const generatedKey = `${username.toLowerCase()}-${day}-${randomPart}`;
+            
+            const keyDisplay = document.getElementById('generatedKey');
+            keyDisplay.textContent = generatedKey;
+            keyDisplay.style.display = 'block';
+            
+            // Add key to the key list
+            addKeyToList(generatedKey);
+            
+            showNotification('Key generated successfully!', 'success');
+        });
+        
+        // Add key to list function
+        function addKeyToList(key) {
+            const keyList = document.getElementById('keyList');
+            
+            const keyItem = document.createElement('div');
+            keyItem.className = 'key-item';
+            keyItem.innerHTML = `
+                <div class="key-code">${key}</div>
+                <div class="key-actions">
+                    <div class="key-btn copy-btn" title="Copy Key">
+                        <i class="fas fa-copy"></i>
+                    </div>
+                    <div class="key-btn delete-btn" title="Delete Key">
+                        <i class="fas fa-trash"></i>
+                    </div>
+                </div>
+            `;
+            
+            keyList.prepend(keyItem);
+            
+            // Add event listeners to new buttons
+            keyItem.querySelector('.copy-btn').addEventListener('click', function() {
+                navigator.clipboard.writeText(key);
+                showNotification('Key copied to clipboard!', 'success');
+            });
+            
+            keyItem.querySelector('.delete-btn').addEventListener('click', function() {
+                keyItem.remove();
+                showNotification('Key deleted!', 'success');
+            });
+        }
+        
+        // Key validation function
+        document.getElementById('checkKeyBtn').addEventListener('click', function() {
+            const keyToCheck = document.getElementById('keyCheck').value;
+            const keyPattern = /^[a-z]{4,}-\d{1,2}-[A-Z0-9]{5}$/;
+            
+            if (keyPattern.test(keyToCheck)) {
+                showNotification('Key is valid!', 'success');
+            } else {
+                showNotification('Invalid key format!', 'error');
+            }
+        });
+        
+        // Copy key functionality for existing keys
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const key = this.closest('.key-item').querySelector('.key-code').textContent;
+                navigator.clipboard.writeText(key);
+                showNotification('Key copied to clipboard!', 'success');
+            });
+        });
+        
+        // Delete key functionality for existing keys
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const keyItem = this.closest('.key-item');
+                keyItem.remove();
+                showNotification('Key deleted!', 'success');
+            });
+        });
+        
+        // Show notification function
+        function showNotification(message, type = '') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification';
+            
+            if (type) {
+                notification.classList.add(type);
+            }
+            
+            notification.classList.add('show');
             
             setTimeout(() => {
-                document.getElementById('keyDisplay').classList.remove('highlight');
-            }, 2000);
-        });
+                notification.classList.remove('show');
+            }, 3000);
+        }
         
-        // Check key validity
-        document.getElementById('checkBtn').addEventListener('click', function() {
-            const keyInput = document.getElementById('keyInput').value.trim();
-            const resultBox = document.getElementById('resultBox');
+        // Change password functionality
+        document.getElementById('changePasswordBtn').addEventListener('click', function() {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmNewPassword').value;
             
-            if (!keyInput) {
-                resultBox.textContent = "Please enter a key to check";
-                resultBox.className = "result-box invalid";
-                return;
-            }
-            
-            // Simple validation - check if key matches the pattern
-            const keyPattern = /^[a-z]{4}-\d{1,2}-[A-Z0-9]{5}$/;
-            
-            if (keyPattern.test(keyInput)) {
-                resultBox.textContent = "✅ Valid Key - Active";
-                resultBox.className = "result-box valid";
+            if (newPassword && newPassword === confirmPassword) {
+                showNotification('Password changed successfully!', 'success');
+                // Clear the password fields
+                document.getElementById('newPassword').value = '';
+                document.getElementById('confirmNewPassword').value = '';
+                document.getElementById('currentPassword').value = '';
             } else {
-                resultBox.textContent = "❌ Invalid Key - Not found or expired";
-                resultBox.className = "result-box invalid";
+                showNotification('Passwords do not match!', 'error');
             }
         });
         
-        // Initialize price display
-        updatePrice();
-        
-        // Update price when duration changes
-        document.getElementById('duration').addEventListener('change', updatePrice);
-        
-        // Countdown timer
-        function updateCountdown() {
-            const expiryDate = new Date('2025-09-11T23:59:59');
-            const now = new Date();
-            const diff = expiryDate - now;
-            
-            if (diff <= 0) {
-                document.getElementById('days').textContent = '0';
-                document.getElementById('hours').textContent = '0';
-                document.getElementById('minutes').textContent = '0';
-                document.getElementById('seconds').textContent = '0';
-                return;
+        // Update account functionality
+        document.getElementById('updateAccountBtn').addEventListener('click', function() {
+            const fullName = document.getElementById('accountFullName').value;
+            if (fullName) {
+                showNotification('Account information updated!', 'success');
+            } else {
+                showNotification('Please enter your full name', 'error');
             }
-            
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            document.getElementById('days').textContent = days;
-            document.getElementById('hours').textContent = hours;
-            document.getElementById('minutes').textContent = minutes;
-            document.getElementById('seconds').textContent = seconds;
-        }
-        
-        // Initial update and set interval
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-        
-        // Add sample keys to the list
-        function addSampleKeys() {
-            const sampleKeys = [
-                "sail-18-AB3D5",
-                "sail-18-XY9Z1",
-                "sail-17-K8J7H",
-                "sail-17-P0Q3R",
-                "sail-16-5T4V2"
-            ];
-            
-            sampleKeys.forEach(key => {
-                const keyItem = document.createElement('div');
-                keyItem.className = 'key-item';
-                keyItem.innerHTML = `
-                    <div>${key}</div>
-                    <div class="key-actions">
-                        <button class="key-btn copy-btn" title="Copy Key">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                        <button class="key-btn delete-btn" title="Delete Key">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                `;
-                document.getElementById('keyList').appendChild(keyItem);
-                
-                // Add event listeners
-                keyItem.querySelector('.copy-btn').addEventListener('click', function() {
-                    navigator.clipboard.writeText(key);
-                    alert('Key copied to clipboard!');
-                });
-                
-                keyItem.querySelector('.delete-btn').addEventListener('click', function() {
-                    keyItem.remove();
-                });
-            });
-        }
-        
-        // Initialize sample keys
-        addSampleKeys();
-        
-        // Page navigation
-        const pages = document.querySelectorAll('.page');
-        const navBtns = document.querySelectorAll('.nav-btn');
-        const pageDots = document.querySelectorAll('.page-dot');
-        
-        function showPage(pageId) {
-            // Hide all pages
-            pages.forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // Show requested page
-            document.getElementById(pageId + '-page').classList.add('active');
-            
-            // Update nav buttons
-            navBtns.forEach(btn => {
-                btn.classList.remove('active');
-                if(btn.dataset.page === pageId) {
-                    btn.classList.add('active');
-                }
-            });
-            
-            // Update page dots
-            pageDots.forEach(dot => {
-                dot.classList.remove('active');
-                if(dot.dataset.page === pageId) {
-                    dot.classList.add('active');
-                }
-            });
-        }
-        
-        // Add event listeners to nav buttons
-        navBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                showPage(btn.dataset.page);
-            });
-        });
-        
-        // Add event listeners to page dots
-        pageDots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                showPage(dot.dataset.page);
-            });
-        });
-        
-        // Handle "Already Joined" button
-        document.getElementById('alreadyJoinedBtn').addEventListener('click', function() {
-            document.getElementById('expiryWarning').classList.add('hidden');
         });
     </script>
 </body>
