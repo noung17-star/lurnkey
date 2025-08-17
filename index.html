@@ -3,614 +3,974 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUBG Mod Key Panel</title>
+    <title>VENOM VIP PANEL</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
             color: #fff;
             min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-        
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></svg>');
-            z-index: -1;
+            padding: 20px;
+            background-attachment: fixed;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
         }
         
-        header {
+        .header {
             text-align: center;
             padding: 20px 0;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 40px;
-            position: relative;
-        }
-        
-        .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            background: linear-gradient(45deg, #ff8a00, #e52e71, #22c1c3);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 10px;
-            text-shadow: 0 0 15px rgba(255, 138, 0, 0.3);
-            letter-spacing: 2px;
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            color: #a0b3c6;
             margin-bottom: 30px;
+            border-bottom: 2px solid #00ff00;
+            position: relative;
+            overflow: hidden;
         }
         
-        .main-content {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 40px;
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.1), transparent);
+            animation: shine 3s infinite;
         }
         
-        .features-panel {
-            flex: 1;
-            background: rgba(15, 23, 42, 0.8);
+        @keyframes shine {
+            0% { left: -50%; }
+            100% { left: 150%; }
+        }
+        
+        .header h1 {
+            font-size: 2.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header p {
+            color: #00ff00;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        .panel {
+            background: rgba(10, 15, 30, 0.9);
             border-radius: 15px;
+            border: 1px solid #00cc00;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
             padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00ff00, #006600, #00ff00);
         }
         
         .panel-title {
-            font-family: 'Orbitron', sans-serif;
+            color: #00ff00;
             font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .panel-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff00, transparent);
+        }
+        
+        .welcome-message {
+            text-align: center;
+            font-size: 1.5rem;
             margin-bottom: 25px;
-            color: #4ade80;
-            text-align: center;
-            padding-bottom: 15px;
-            border-bottom: 2px solid rgba(74, 222, 128, 0.3);
+            color: #00ff00;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
         }
         
-        .feature-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+        .form-group {
+            margin-bottom: 20px;
         }
         
-        .feature-card {
-            background: rgba(30, 41, 59, 0.7);
-            border-radius: 10px;
-            padding: 20px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            cursor: pointer;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-            border-color: rgba(74, 222, 128, 0.3);
-        }
-        
-        .feature-card.active {
-            border-color: #4ade80;
-            background: rgba(30, 41, 59, 0.9);
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            color: #4ade80;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        
-        .feature-name {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            text-align: center;
-            font-family: 'Orbitron', sans-serif;
-        }
-        
-        .feature-desc {
-            font-size: 0.9rem;
-            color: #cbd5e1;
-            text-align: center;
-            line-height: 1.5;
-        }
-        
-        .key-panel {
-            flex: 1;
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .key-display {
-            background: rgba(30, 41, 59, 0.9);
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 30px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            min-height: 150px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .key-title {
-            font-size: 1.2rem;
-            color: #a0b3c6;
-            margin-bottom: 15px;
-        }
-        
-        .key-value {
-            font-family: 'Courier New', monospace;
-            font-size: 1.8rem;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px 30px;
-            border-radius: 8px;
-            letter-spacing: 3px;
-            color: #4ade80;
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #00cc00;
             font-weight: bold;
-            border: 1px dashed rgba(74, 222, 128, 0.5);
-            margin: 10px 0;
-            word-break: break-all;
         }
         
-        .key-info {
-            font-size: 0.9rem;
-            color: #94a3b8;
-            margin-top: 10px;
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 20, 10, 0.5);
+            border: 1px solid #007700;
+            border-radius: 8px;
+            color: #00ff00;
+            font-size: 1rem;
+            transition: all 0.3s;
         }
         
-        .action-buttons {
+        .form-control:focus {
+            outline: none;
+            border-color: #00ff00;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+        
+        .form-control::placeholder {
+            color: #008800;
+        }
+        
+        .checkbox-group {
             display: flex;
-            gap: 15px;
-            margin-top: auto;
+            align-items: center;
+            margin: 15px 0;
+        }
+        
+        .checkbox-group input {
+            margin-right: 10px;
+            accent-color: #00ff00;
         }
         
         .btn {
-            flex: 1;
-            padding: 15px;
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #00aa00, #006600);
             border: none;
             border-radius: 8px;
+            color: white;
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            font-family: 'Orbitron', sans-serif;
+            transition: all 0.3s;
+            text-transform: uppercase;
             letter-spacing: 1px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+        
+        .btn:hover::before {
+            top: 0;
+            left: 0;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, #00cc00, #008800);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+        }
+        
+        .btn:active {
+            transform: translateY(2px);
         }
         
         .btn-generate {
-            background: linear-gradient(45deg, #4ade80, #22d3ee);
-            color: #0f172a;
+            background: linear-gradient(135deg, #00cc00, #005500);
         }
         
-        .btn-generate:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(74, 222, 128, 0.4);
+        .link-text {
+            text-align: center;
+            margin: 15px 0;
+            color: #00aa00;
         }
         
-        .btn-copy {
-            background: linear-gradient(45deg, #f97316, #e879f9);
-            color: #fff;
+        .link-text a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
         }
         
-        .btn-copy:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.4);
+        .link-text a:hover {
+            text-decoration: underline;
         }
         
-        .stats-panel {
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 40px;
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 25px 0;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+        
+        .countdown-item {
+            background: rgba(0, 30, 0, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 80px;
+            border: 1px solid #00aa00;
+            box-shadow: 0 0 10px rgba(0, 100, 0, 0.5);
+        }
+        
+        .countdown-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00ff00;
+        }
+        
+        .countdown-label {
+            font-size: 0.9rem;
+            color: #00cc00;
+            text-transform: uppercase;
         }
         
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            text-align: center;
+            margin: 25px 0;
         }
         
-        .stat-item {
-            padding: 20px;
-            background: rgba(30, 41, 59, 0.5);
+        .stat-card {
+            background: rgba(0, 30, 15, 0.4);
             border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #008800;
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 100, 0, 0.3);
         }
         
         .stat-value {
             font-size: 2.5rem;
-            font-family: 'Orbitron', sans-serif;
-            color: #4ade80;
+            font-weight: bold;
+            color: #00ff00;
             margin: 10px 0;
         }
         
         .stat-label {
-            font-size: 1rem;
-            color: #a0b3c6;
+            font-size: 1.1rem;
+            color: #00cc00;
         }
         
-        .instructions {
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: rgba(0, 20, 10, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
         }
         
-        .instructions h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: #22d3ee;
+        .history-table th {
+            background: rgba(0, 80, 0, 0.5);
+            padding: 15px;
+            text-align: left;
+            color: #00ff00;
+            text-transform: uppercase;
         }
         
-        .steps {
+        .history-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #004400;
+        }
+        
+        .history-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .history-table tr:hover {
+            background: rgba(0, 50, 0, 0.3);
+        }
+        
+        .tab-container {
             display: flex;
-            gap: 20px;
+            gap: 10px;
+            margin-bottom: 25px;
             flex-wrap: wrap;
         }
         
-        .step {
-            flex: 1;
-            min-width: 250px;
-            background: rgba(30, 41, 59, 0.5);
+        .tab {
+            padding: 12px 25px;
+            background: rgba(0, 40, 0, 0.5);
+            border: 1px solid #008800;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .tab:hover, .tab.active {
+            background: rgba(0, 100, 0, 0.7);
+            border-color: #00ff00;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .key-display {
+            background: rgba(0, 20, 0, 0.5);
             padding: 20px;
             border-radius: 10px;
-            border-left: 4px solid #4ade80;
+            border: 1px dashed #00aa00;
+            margin: 25px 0;
+            text-align: center;
+            font-size: 1.5rem;
+            color: #00ff00;
+            letter-spacing: 2px;
+            word-break: break-all;
+            font-family: monospace;
         }
         
-        .step-number {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            background: #4ade80;
-            color: #0f172a;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 30px;
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .info-card {
+            background: rgba(0, 30, 15, 0.4);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #007700;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #004400;
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            color: #00cc00;
             font-weight: bold;
-            margin-right: 10px;
         }
         
-        .step-title {
-            display: inline;
-            font-weight: 600;
-            font-size: 1.2rem;
+        .info-value {
+            color: #00ff00;
+            font-weight: bold;
         }
         
-        .step-desc {
-            margin-top: 10px;
-            color: #cbd5e1;
-            line-height: 1.6;
-        }
-        
-        footer {
+        .footer {
             text-align: center;
-            padding: 30px 0;
-            color: #94a3b8;
+            padding: 25px 0;
+            color: #00aa00;
             font-size: 0.9rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 20px;
+            border-top: 1px solid #008800;
+            margin-top: 30px;
         }
         
-        .disclaimer {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 15px;
-            background: rgba(239, 68, 68, 0.1);
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: rgba(0, 50, 0, 0.9);
+            border: 1px solid #00ff00;
             border-radius: 8px;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            font-size: 0.85rem;
+            color: #00ff00;
+            z-index: 1000;
+            transform: translateX(200%);
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
         }
         
-        @media (max-width: 900px) {
-            .main-content {
-                flex-direction: column;
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .apk-download {
+            display: block;
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(0, 40, 0, 0.6);
+            border-radius: 10px;
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .apk-download:hover {
+            background: rgba(0, 80, 0, 0.8);
+            transform: translateY(-3px);
+        }
+        
+        .delete-history {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: rgba(100, 0, 0, 0.3);
+            border: 1px solid #aa0000;
+            border-radius: 8px;
+            color: #ff5555;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .delete-history:hover {
+            background: rgba(150, 0, 0, 0.5);
+        }
+        
+        .account-expire {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #00ff00;
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(0, 40, 0, 0.4);
+            border-radius: 10px;
+            border: 1px solid #00aa00;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
             }
             
-            .logo {
-                font-size: 2.5rem;
+            .countdown {
+                gap: 10px;
+                flex-wrap: wrap;
             }
-        }
-        
-        /* Animation for key generation */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .pulse {
-            animation: pulse 0.5s ease;
-        }
-        
-        /* Hosting instructions */
-        .hosting-section {
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .hosting-section h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: #f97316;
-            text-align: center;
-        }
-        
-        .hosting-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        
-        .hosting-step {
-            background: rgba(30, 41, 59, 0.5);
-            padding: 20px;
-            border-radius: 10px;
-            border-top: 3px solid #f97316;
-        }
-        
-        .hosting-step h3 {
-            font-family: 'Orbitron', sans-serif;
-            margin-bottom: 10px;
-            color: #22d3ee;
+            
+            .countdown-item {
+                min-width: 70px;
+                padding: 10px;
+            }
+            
+            .countdown-value {
+                font-size: 1.5rem;
+            }
+            
+            .tab-container {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="logo">PUBG MOD KEY PANEL</div>
-            <div class="subtitle">Unlock premium features with generated activation keys</div>
-        </header>
+        <div class="header">
+            <h1>VENOM VIP PANEL</h1>
+            <p>Cheapest Hosting II Domain Services</p>
+        </div>
         
-        <div class="hosting-section">
-            <h2><i class="fas fa-cloud-upload-alt"></i> FREE HOSTING INSTRUCTIONS</h2>
-            <div class="hosting-steps">
-                <div class="hosting-step">
-                    <h3><i class="fab fa-github"></i> Step 1: Create GitHub Account</h3>
-                    <p>Go to github.com and sign up for a free account</p>
-                </div>
-                <div class="hosting-step">
-                    <h3><i class="fas fa-folder"></i> Step 2: Create Repository</h3>
-                    <p>Create a new repository named "pubg-mod-key-panel"</p>
-                </div>
-                <div class="hosting-step">
-                    <h3><i class="fas fa-file-code"></i> Step 3: Upload HTML</h3>
-                    <p>Upload this HTML file to your repository (name it index.html)</p>
-                </div>
-                <div class="hosting-step">
-                    <h3><i class="fas fa-cog"></i> Step 4: Enable Pages</h3>
-                    <p>Go to Settings > Pages > Select branch and folder</p>
-                </div>
-                <div class="hosting-step">
-                    <h3><i class="fas fa-globe"></i> Step 5: Access Your Site</h3>
-                    <p>Your site will be live at: username.github.io/pubg-mod-key-panel</p>
-                </div>
+        <!-- Login Section -->
+        <div class="panel" id="loginPanel">
+            <h2 class="panel-title">Welcome Baby</h2>
+            
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" class="form-control" placeholder="Your username">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Your password">
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="stayLogin">
+                <label for="stayLogin">Stay login</label>
+            </div>
+            
+            <button class="btn" id="loginBtn">Login</button>
+            
+            <div class="link-text">
+                Don't have an account? <a href="#" id="showRegister">Register here</a>
+            </div>
+            
+            <a href="#" class="apk-download">
+                <i class="fas fa-download"></i> Download APK
+            </a>
+            
+            <div class="link-text">
+                JOIN UPDATES - <a href="#">[TBLECRAM]</a>
             </div>
         </div>
         
-        <div class="main-content">
-            <div class="features-panel">
-                <h2 class="panel-title">AVAILABLE MOD FEATURES</h2>
-                <div class="feature-list">
-                    <div class="feature-card active">
-                        <div class="feature-icon">
-                            <i class="fas fa-crosshairs"></i>
-                        </div>
-                        <h3 class="feature-name">AIMBOT</h3>
-                        <p class="feature-desc">Precision targeting system with auto-aim functionality for perfect shots</p>
+        <!-- Registration Section -->
+        <div class="panel" id="registerPanel" style="display:none">
+            <h2 class="panel-title">Create Account</h2>
+            
+            <div class="form-group">
+                <label for="regUsername">Username - No Spaces</label>
+                <input type="text" id="regUsername" class="form-control" placeholder="Enter username">
+            </div>
+            
+            <div class="form-group">
+                <label for="fullName">Full Name - No Spaces</label>
+                <input type="text" id="fullName" class="form-control" placeholder="Enter full name">
+            </div>
+            
+            <div class="form-group">
+                <label for="regPassword">Password</label>
+                <input type="password" id="regPassword" class="form-control" placeholder="Enter password">
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm password">
+            </div>
+            
+            <div class="form-group">
+                <label for="referralCode">Referral Code</label>
+                <input type="text" id="referralCode" class="form-control" value="mw1Ysv">
+            </div>
+            
+            <button class="btn" id="registerBtn">Register</button>
+            
+            <div class="link-text">
+                Already have an account? <a href="#" id="showLogin">Login here</a>
+            </div>
+        </div>
+        
+        <!-- Dashboard Section -->
+        <div class="panel" id="dashboardPanel" style="display:none">
+            <div class="account-expire">
+                Account Expires on : 2025-09-11 23:59:59
+            </div>
+            
+            <h2 class="panel-title">Welcome <span id="userName">lurn</span></h2>
+            
+            <div class="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-value" id="days">24</div>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="hours">22</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="minutes">10</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="seconds">01</div>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+            
+            <div class="tab-container">
+                <div class="tab active" data-tab="dashboard">Dashboard</div>
+                <div class="tab" data-tab="generate">Generate Keys</div>
+                <div class="tab" data-tab="keys">My Keys</div>
+                <div class="tab" data-tab="settings">Settings</div>
+            </div>
+            
+            <!-- Dashboard Tab -->
+            <div class="tab-content active" id="dashboardTab">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">TOTAL KEYS</div>
+                        <div class="stat-value">1205</div>
                     </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-eye"></i>
-                        </div>
-                        <h3 class="feature-name">WALLHACK</h3>
-                        <p class="feature-desc">See through walls and obstacles to spot enemies easily</p>
+                    <div class="stat-card">
+                        <div class="stat-label">USED KEYS</div>
+                        <div class="stat-value">1061</div>
                     </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3 class="feature-name">NO RECOIL</h3>
-                        <p class="feature-desc">Eliminate weapon recoil for steady aiming and shooting</p>
+                    <div class="stat-card">
+                        <div class="stat-label">UN-USED KEYS</div>
+                        <div class="stat-value">144</div>
                     </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-bolt"></i>
-                        </div>
-                        <h3 class="feature-name">SPEED HACK</h3>
-                        <p class="feature-desc">Increase movement speed for faster rotations and escapes</p>
+                    <div class="stat-card">
+                        <div class="stat-label">TOTAL USERS</div>
+                        <div class="stat-value">1425</div>
                     </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-syringe"></i>
+                </div>
+                
+                <h3 class="panel-title" style="font-size:1.5rem">History</h3>
+                
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Game</th>
+                            <th>User</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#3812525</td>
+                            <td>PUBG</td>
+                            <td>Sarva**</td>
+                            <td>1 Day</td>
+                        </tr>
+                        <tr>
+                            <td>#3812524</td>
+                            <td>PUBG</td>
+                            <td>@PUBG**</td>
+                            <td>3 Days</td>
+                        </tr>
+                        <tr>
+                            <td>#3812523</td>
+                            <td>PUBG</td>
+                            <td>REDTE**</td>
+                            <td>7 Days</td>
+                        </tr>
+                        <tr>
+                            <td>#3812522</td>
+                            <td>PUBG</td>
+                            <td>ASD12**</td>
+                            <td>30 Days</td>
+                        </tr>
+                        <tr>
+                            <td>#3812521</td>
+                            <td>PUBG</td>
+                            <td>AigoI**</td>
+                            <td>30 Days</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <button class="delete-history">Delete All History Records</button>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3 style="color:#00ff00; margin-bottom:15px; text-align:center">Information</h3>
+                        <div class="info-row">
+                            <span class="info-label">ROLE</span>
+                            <span class="info-value">Reseller</span>
                         </div>
-                        <h3 class="feature-name">AUTO HEAL</h3>
-                        <p class="feature-desc">Automatically use medkits and boosters when health is low</p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-ghost"></i>
+                        <div class="info-row">
+                            <span class="info-label">BALANCE</span>
+                            <span class="info-value">$478461619</span>
                         </div>
-                        <h3 class="feature-name">ANTI-BAN</h3>
-                        <p class="feature-desc">Advanced protection system to avoid detection and bans</p>
+                        <div class="info-row">
+                            <span class="info-label">LOGIN TIME</span>
+                            <span class="info-value">Just now</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">AUTO LOG-OUT</span>
+                            <span class="info-value">in 23 hours</span>
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <div class="key-panel">
-                <h2 class="panel-title">KEY GENERATOR</h2>
+            <!-- Generate Keys Tab -->
+            <div class="tab-content" id="generateTab">
+                <h3 class="panel-title" style="font-size:1.5rem">Create License</h3>
+                
+                <div class="form-group">
+                    <label for="game">Game</label>
+                    <select id="game" class="form-control">
+                        <option value="pubg" selected>PUBG Mobile</option>
+                        <option value="cod">Call of Duty Mobile</option>
+                        <option value="ff">Free Fire</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="maxDevices">Max Devices</label>
+                    <select id="maxDevices" class="form-control">
+                        <option value="1" selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="duration">Duration</label>
+                    <select id="duration" class="form-control">
+                        <option value="2">2 Hours - ₹10/Device</option>
+                        <option value="6">6 Hours - ₹25/Device</option>
+                        <option value="24">1 Day - ₹50/Device</option>
+                        <option value="72">3 Days - ₹120/Device</option>
+                        <option value="168">7 Days - ₹250/Device</option>
+                        <option value="720">30 Days - ₹1000/Device</option>
+                    </select>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="customKey" checked>
+                    <label for="customKey">Custom Key</label>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="bulkKeys">
+                    <label for="bulkKeys">Bulk Keys</label>
+                </div>
+                
+                <div class="form-group" id="keysCountGroup" style="display:none">
+                    <label for="keysCount">Number of Keys</label>
+                    <input type="number" id="keysCount" class="form-control" value="1" min="1" max="100">
+                </div>
+                
+                <div class="form-group">
+                    <label>Estimation</label>
+                    <div class="stat-value" style="font-size:1.8rem; text-align:center">₹10</div>
+                </div>
+                
+                <button class="btn btn-generate" id="generateBtn">Generate</button>
+                
+                <div class="key-display" id="generatedKey" style="display:none">
+                    PUBG-8X2D-F9K3-L7M1-4Z6Q
+                </div>
+            </div>
+            
+            <!-- My Keys Tab -->
+            <div class="tab-content" id="keysTab">
+                <h3 class="panel-title" style="font-size:1.5rem">Keys Registered</h3>
+                
                 <div class="key-display">
-                    <div class="key-title">YOUR ACTIVATION KEY</div>
-                    <div class="key-value" id="keyValue">XXXX-XXXX-XXXX-XXXX</div>
-                    <div class="key-info">Key valid for 24 hours | One device activation</div>
+                    Nothing keys to show
+                </div>
+            </div>
+            
+            <!-- Settings Tab -->
+            <div class="tab-content" id="settingsTab">
+                <h3 class="panel-title" style="font-size:1.5rem">Change Password</h3>
+                
+                <div class="form-group">
+                    <label for="currentPassword">Current Password</label>
+                    <input type="password" id="currentPassword" class="form-control" placeholder="Current Password">
                 </div>
                 
-                <div class="action-buttons">
-                    <button class="btn btn-generate" id="generateBtn">
-                        <i class="fas fa-key"></i> GENERATE KEY
-                    </button>
-                    <button class="btn btn-copy" id="copyBtn">
-                        <i class="fas fa-copy"></i> COPY KEY
-                    </button>
+                <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword" class="form-control" placeholder="New Password">
                 </div>
+                
+                <div class="form-group">
+                    <label for="confirmNewPassword">Confirm Password</label>
+                    <input type="password" id="confirmNewPassword" class="form-control" placeholder="Confirm Password">
+                </div>
+                
+                <button class="btn" id="changePasswordBtn">Change Password</button>
+                
+                <h3 class="panel-title" style="font-size:1.5rem; margin-top:30px">Account Information</h3>
+                
+                <div class="form-group">
+                    <label for="accountFullName">Full Name</label>
+                    <input type="text" id="accountFullName" class="form-control" value="lurn">
+                </div>
+                
+                <button class="btn" id="updateAccountBtn">Update Account</button>
             </div>
         </div>
         
-        <div class="stats-panel">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-label">KEYS GENERATED TODAY</div>
-                    <div class="stat-value">1,842</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">ACTIVE USERS</div>
-                    <div class="stat-value">24,591</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">SUCCESS RATE</div>
-                    <div class="stat-value">98.7%</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">LAST UPDATED</div>
-                    <div class="stat-value">2 HOURS AGO</div>
-                </div>
-            </div>
+        <div class="footer">
+            © Mon 18-Aug 2025 - VENOM PRATAP
         </div>
-        
-        <div class="instructions">
-            <h2>HOW TO ACTIVATE</h2>
-            <div class="steps">
-                <div class="step">
-                    <span class="step-number">1</span>
-                    <span class="step-title">Generate Key</span>
-                    <p class="step-desc">Click the "Generate Key" button to create your unique activation key.</p>
-                </div>
-                <div class="step">
-                    <span class="step-number">2</span>
-                    <span class="step-title">Download Mod</span>
-                    <p class="step-desc">Download the PUBG mod application from our secure servers.</p>
-                </div>
-                <div class="step">
-                    <span class="step-number">3</span>
-                    <span class="step-title">Enter Key</span>
-                    <p class="step-desc">Launch the mod application and enter your activation key when prompted.</p>
-                </div>
-                <div class="step">
-                    <span class="step-number">4</span>
-                    <span class="step-title">Enjoy Features</span>
-                    <p class="step-desc">Restart PUBG and enjoy premium features in your next match!</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="disclaimer">
-            <strong>Disclaimer:</strong> This website is for educational purposes only. We do not promote cheating in online games. Using mods may violate PUBG's terms of service and could result in account bans. Use at your own risk.
-        </div>
-        
-        <footer>
-            <p>PUBG Mod Key Panel &copy; 2023 | Hosted for free with GitHub Pages</p>
-            <p>This site is not affiliated with PUBG Corporation or Tencent Games</p>
-        </footer>
     </div>
-
+    
+    <div class="notification" id="notification">
+        Key generated successfully!
+    </div>
+    
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const featureCards = document.querySelectorAll('.feature-card');
-            const generateBtn = document.getElementById('generateBtn');
-            const copyBtn = document.getElementById('copyBtn');
-            const keyValue = document.getElementById('keyValue');
-            
-            // Feature selection
-            featureCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    featureCards.forEach(c => c.classList.remove('active'));
-                    this.classList.add('active');
+        // Tab switching functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Hide all tab contents
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
                 });
-            });
-            
-            // Generate key
-            generateBtn.addEventListener('click', function() {
-                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-                let newKey = '';
                 
-                for (let i = 0; i < 16; i++) {
-                    if (i > 0 && i % 4 === 0) {
-                        newKey += '-';
-                    }
-                    newKey += chars.charAt(Math.floor(Math.random() * chars.length));
-                }
-                
-                keyValue.textContent = newKey;
-                keyValue.classList.add('pulse');
-                
-                setTimeout(() => {
-                    keyValue.classList.remove('pulse');
-                }, 500);
-            });
-            
-            // Copy key
-            copyBtn.addEventListener('click', function() {
-                const textArea = document.createElement('textarea');
-                textArea.value = keyValue.textContent;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                
-                // Visual feedback
-                const originalText = copyBtn.innerHTML;
-                copyBtn.innerHTML = '<i class="fas fa-check"></i> COPIED!';
-                
-                setTimeout(() => {
-                    copyBtn.innerHTML = originalText;
-                }, 2000);
+                // Show the corresponding tab content
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(`${tabId}Tab`).classList.add('active');
             });
         });
+        
+        // Toggle bulk keys field
+        document.getElementById('bulkKeys').addEventListener('change', function() {
+            document.getElementById('keysCountGroup').style.display = this.checked ? 'block' : 'none';
+        });
+        
+        // Show registration panel
+        document.getElementById('showRegister').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('loginPanel').style.display = 'none';
+            document.getElementById('registerPanel').style.display = 'block';
+        });
+        
+        // Show login panel
+        document.getElementById('showLogin').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('registerPanel').style.display = 'none';
+            document.getElementById('loginPanel').style.display = 'block';
+        });
+        
+        // Login functionality
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if(username && password) {
+                document.getElementById('loginPanel').style.display = 'none';
+                document.getElementById('dashboardPanel').style.display = 'block';
+                document.getElementById('userName').textContent = username;
+                
+                // Start countdown timer
+                startCountdown();
+            } else {
+                showNotification('Please enter username and password');
+            }
+        });
+        
+        // Registration functionality
+        document.getElementById('registerBtn').addEventListener('click', function() {
+            const username = document.getElementById('regUsername').value;
+            const fullName = document.getElementById('fullName').value;
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if(!username || !fullName || !password || !confirmPassword) {
+                showNotification('Please fill all fields');
+                return;
+            }
+            
+            if(password !== confirmPassword) {
+                showNotification('Passwords do not match');
+                return;
+            }
+            
+            if(username.includes(' ') || fullName.includes(' ')) {
+                showNotification('Username and Full Name cannot contain spaces');
+                return;
+            }
+            
+            showNotification('Account created successfully!');
+            
+            // After registration, show login panel
+            setTimeout(() => {
+                document.getElementById('registerPanel').style.display = 'none';
+                document.getElementById('loginPanel').style.display = 'block';
+                document.getElementById('username').value = username;
+                document.getElementById('password').value = password;
+            }, 1500);
+        });
+        
+        // Generate key functionality
+        document.getElementById('generateBtn').addEventListener('click', function() {
+            const generatedKey = document.getElementById('generatedKey');
+            generatedKey.style.display = 'block';
+            generatedKey.textContent = generateKey();
+            
+            showNotification('Key generated successfully!');
+        });
+        
+        // Show notification
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Generate random key
+        function generateKey() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let key = 'PUBG-';
+            
+            for(let i = 0; i < 16; i++) {
+                key += chars.charAt(Math.floor(Math.random() * chars.length));
+                if(i === 3 || i === 7 || i === 11) key += '-';
+            }
+            
+            return key;
+        }
+        
+        // Countdown timer
+        function startCountdown() {
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+            
+            let days = 24;
+            let hours = 22;
+            let minutes = 10;
+            let seconds = 1;
+            
+            function updateTimer() {
+                seconds--;
+                if(seconds < 0) {
+                    seconds = 59;
+                    minutes--;
+                    if(minutes < 0) {
+                        minutes = 59;
+                        hours--;
+                        if(hours < 0) {
+                            hours = 23;
+                            days--;
+                        }
+                    }
+                }
+                
+                daysEl.textContent = days.toString().padStart(2, '0');
+                hoursEl.textContent = hours.toString().padStart(2, '0');
+                minutesEl.textContent = minutes.toString().padStart(2, '0');
+                secondsEl.textContent = seconds.toString().padStart(2, '0');
+            }
+            
+            // Update timer every second
+            setInterval(updateTimer, 1000);
+        }
     </script>
 </body>
-  </html>
+</html>
