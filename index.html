@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUBG Mod Key Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></svg>');
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, #ff8a00, #e52e71, #22c1c3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(255, 138, 0, 0.3);
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a0b3c6;
+            margin-bottom: 30px;
+        }
+        
+        .main-content {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .features-panel {
+            flex: 1;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .panel-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #4ade80;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(74, 222, 128, 0.3);
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .feature-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            border-color: rgba(74, 222, 128, 0.3);
+        }
+        
+        .feature-card.active {
+            border-color: #4ade80;
+            background: rgba(30, 41, 59, 0.9);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #4ade80;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .feature-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .feature-desc {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            text-align: center;
+            line-height: 1.5;
+        }
+        
+        .key-panel {
+            flex: 1;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .key-display {
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .key-title {
+            font-size: 1.2rem;
+            color: #a0b3c6;
+            margin-bottom: 15px;
+        }
+        
+        .key-value {
+            font-family: 'Courier New', monospace;
+            font-size: 1.8rem;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 30px;
+            border-radius: 8px;
+            letter-spacing: 3px;
+            color: #4ade80;
+            font-weight: bold;
+            border: 1px dashed rgba(74, 222, 128, 0.5);
+            margin: 10px 0;
+            word-break: break-all;
+        }
+        
+        .key-info {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-top: 10px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: auto;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .btn-generate {
+            background: linear-gradient(45deg, #4ade80, #22d3ee);
+            color: #0f172a;
+        }
+        
+        .btn-generate:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(74, 222, 128, 0.4);
+        }
+        
+        .btn-copy {
+            background: linear-gradient(45deg, #f97316, #e879f9);
+            color: #fff;
+        }
+        
+        .btn-copy:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.4);
+        }
+        
+        .stats-panel {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: 20px;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 10px;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-family: 'Orbitron', sans-serif;
+            color: #4ade80;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: #a0b3c6;
+        }
+        
+        .instructions {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .instructions h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #22d3ee;
+        }
+        
+        .steps {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 250px;
+            background: rgba(30, 41, 59, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #4ade80;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #4ade80;
+            color: #0f172a;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .step-title {
+            display: inline;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .step-desc {
+            margin-top: 10px;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+        
+        .disclaimer {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 15px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .logo {
+                font-size: 2.5rem;
+            }
+        }
+        
+        /* Animation for key generation */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 0.5s ease;
+        }
+        
+        /* Hosting instructions */
+        .hosting-section {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .hosting-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #f97316;
+            text-align: center;
+        }
+        
+        .hosting-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .hosting-step {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            border-top: 3px solid #f97316;
+        }
+        
+        .hosting-step h3 {
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 10px;
+            color: #22d3ee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">PUBG MOD KEY PANEL</div>
+            <div class="subtitle">Unlock premium features with generated activation keys</div>
+        </header>
+        
+        <div class="hosting-section">
+            <h2><i class="fas fa-cloud-upload-alt"></i> FREE HOSTING INSTRUCTIONS</h2>
+            <div class="hosting-steps">
+                <div class="hosting-step">
+                    <h3><i class="fab fa-github"></i> Step 1: Create GitHub Account</h3>
+                    <p>Go to github.com and sign up for a free account</p>
+                </div>
+                <div class="hosting-step">
+                    <h3><i class="fas fa-folder"></i> Step 2: Create Repository</h3>
+                    <p>Create a new repository named "pubg-mod-key-panel"</p>
+                </div>
+                <div class="hosting-step">
+                    <h3><i class="fas fa-file-code"></i> Step 3: Upload HTML</h3>
+                    <p>Upload this HTML file to your repository (name it index.html)</p>
+                </div>
+                <div class="hosting-step">
+                    <h3><i class="fas fa-cog"></i> Step 4: Enable Pages</h3>
+                    <p>Go to Settings > Pages > Select branch and folder</p>
+                </div>
+                <div class="hosting-step">
+                    <h3><i class="fas fa-globe"></i> Step 5: Access Your Site</h3>
+                    <p>Your site will be live at: username.github.io/pubg-mod-key-panel</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="features-panel">
+                <h2 class="panel-title">AVAILABLE MOD FEATURES</h2>
+                <div class="feature-list">
+                    <div class="feature-card active">
+                        <div class="feature-icon">
+                            <i class="fas fa-crosshairs"></i>
+                        </div>
+                        <h3 class="feature-name">AIMBOT</h3>
+                        <p class="feature-desc">Precision targeting system with auto-aim functionality for perfect shots</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3 class="feature-name">WALLHACK</h3>
+                        <p class="feature-desc">See through walls and obstacles to spot enemies easily</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="feature-name">NO RECOIL</h3>
+                        <p class="feature-desc">Eliminate weapon recoil for steady aiming and shooting</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="feature-name">SPEED HACK</h3>
+                        <p class="feature-desc">Increase movement speed for faster rotations and escapes</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-syringe"></i>
+                        </div>
+                        <h3 class="feature-name">AUTO HEAL</h3>
+                        <p class="feature-desc">Automatically use medkits and boosters when health is low</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-ghost"></i>
+                        </div>
+                        <h3 class="feature-name">ANTI-BAN</h3>
+                        <p class="feature-desc">Advanced protection system to avoid detection and bans</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="key-panel">
+                <h2 class="panel-title">KEY GENERATOR</h2>
+                <div class="key-display">
+                    <div class="key-title">YOUR ACTIVATION KEY</div>
+                    <div class="key-value" id="keyValue">XXXX-XXXX-XXXX-XXXX</div>
+                    <div class="key-info">Key valid for 24 hours | One device activation</div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-generate" id="generateBtn">
+                        <i class="fas fa-key"></i> GENERATE KEY
+                    </button>
+                    <button class="btn btn-copy" id="copyBtn">
+                        <i class="fas fa-copy"></i> COPY KEY
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats-panel">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-label">KEYS GENERATED TODAY</div>
+                    <div class="stat-value">1,842</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">ACTIVE USERS</div>
+                    <div class="stat-value">24,591</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">SUCCESS RATE</div>
+                    <div class="stat-value">98.7%</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">LAST UPDATED</div>
+                    <div class="stat-value">2 HOURS AGO</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h2>HOW TO ACTIVATE</h2>
+            <div class="steps">
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <span class="step-title">Generate Key</span>
+                    <p class="step-desc">Click the "Generate Key" button to create your unique activation key.</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <span class="step-title">Download Mod</span>
+                    <p class="step-desc">Download the PUBG mod application from our secure servers.</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <span class="step-title">Enter Key</span>
+                    <p class="step-desc">Launch the mod application and enter your activation key when prompted.</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <span class="step-title">Enjoy Features</span>
+                    <p class="step-desc">Restart PUBG and enjoy premium features in your next match!</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="disclaimer">
+            <strong>Disclaimer:</strong> This website is for educational purposes only. We do not promote cheating in online games. Using mods may violate PUBG's terms of service and could result in account bans. Use at your own risk.
+        </div>
+        
+        <footer>
+            <p>PUBG Mod Key Panel &copy; 2023 | Hosted for free with GitHub Pages</p>
+            <p>This site is not affiliated with PUBG Corporation or Tencent Games</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureCards = document.querySelectorAll('.feature-card');
+            const generateBtn = document.getElementById('generateBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const keyValue = document.getElementById('keyValue');
+            
+            // Feature selection
+            featureCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    featureCards.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Generate key
+            generateBtn.addEventListener('click', function() {
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                let newKey = '';
+                
+                for (let i = 0; i < 16; i++) {
+                    if (i > 0 && i % 4 === 0) {
+                        newKey += '-';
+                    }
+                    newKey += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                
+                keyValue.textContent = newKey;
+                keyValue.classList.add('pulse');
+                
+                setTimeout(() => {
+                    keyValue.classList.remove('pulse');
+                }, 500);
+            });
+            
+            // Copy key
+            copyBtn.addEventListener('click', function() {
+                const textArea = document.createElement('textarea');
+                textArea.value = keyValue.textContent;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                // Visual feedback
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> COPIED!';
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+  </html>
